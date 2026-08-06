@@ -582,7 +582,10 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
   .ws-text{font-size:clamp(1.02rem,4.3vw,1.25rem)}
 }
 
-.chip-row--center{justify-content:center}
+/* centre the tags AND cap the width so a long list (e.g. the audience tags on
+   /solutions) forms a tidy balanced block instead of sprawling across the full
+   container into lopsided rows */
+.chip-row--center{justify-content:center;max-width:720px;margin-inline:auto}
 
 /* ---------- responsive ---------- */
 @media(max-width:880px){
