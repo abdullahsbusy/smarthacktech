@@ -593,12 +593,26 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
 }
 @media(max-width:760px){
   .nav-toggle{display:flex}
-  .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;
-    align-items:flex-start;gap:24px;padding:108px 34px;background:rgba(10,10,10,.94);
-    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);transform:translateX(100%);
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);flex-direction:column;
+    align-items:flex-start;gap:22px;padding:104px 30px 44px;
+    /* SOLID, opaque background — never rely on backdrop-filter for the mobile
+       drawer: on Android a position:fixed + transform element with a
+       backdrop-filter fails to composite and the whole panel renders
+       see-through, letting the page bleed through the menu. */
+    background:#080c11;transform:translateX(100%);
     transition:transform var(--dur-2) var(--ease-out-expo);
-    border-left:1px solid var(--line)}
+    border-left:1px solid var(--line);
+    /* the expanded menu (with both sub-menus open) is taller than the screen,
+       so it must scroll — otherwise the last items (Get a Quote) sit off-screen
+       and can't be tapped */
+    overflow-y:auto;overscroll-behavior:contain}
   .nav-links.open{transform:translateX(0)}
+  /* dim the page behind the drawer; the toggle sits outside the scrolling
+     panel, so its scrim isn't clipped by the drawer's overflow */
+  .nav-toggle::after{content:"";position:fixed;inset:0;z-index:-1;
+    background:rgba(3,6,10,.6);opacity:0;pointer-events:none;
+    transition:opacity var(--dur-2) var(--ease-out)}
+  .nav-toggle.open::after{opacity:1}
   /* drawer items cascade in after the panel lands */
   .nav-links > li{width:100%;opacity:0;translate:18px 0;
     transition:opacity .35s var(--ease-out),translate .35s var(--ease-out)}

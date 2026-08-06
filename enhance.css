@@ -364,7 +364,7 @@ html[data-theme="light"] .cp__scrim{background:rgba(20,30,20,.35)}
   .hero--video .hero__grid{ max-width:none }
   .hero-portal__vid{ object-position:center 22% }
   .hero-portal::after{ background:
-    linear-gradient(0deg, rgba(10,10,10,1) 2%, rgba(7,11,15,.55) 34%, rgba(7,11,15,.5) 100%),
+    linear-gradient(0deg, rgba(8,10,13,1) 2%, rgba(7,11,15,.72) 42%, rgba(7,11,15,.5) 100%),
     linear-gradient(155deg, rgba(47,168,239,.16), transparent 42%) }
 }
 /* reduced motion / no autoplay: show the still poster, no video, no scan */
@@ -749,9 +749,12 @@ html.fx-on .scroll-hint{
   .scroll-hint{ opacity:1 }
 }
 
-/* mobile: the hero video portal never plays on phones — don't ship its
-   blank frame or 85KB poster; the copy IS the hero on small screens */
+/* mobile: keep the hero visual, but as a still poster (87KB) rather than the
+   1.1MB video — the copy sits above the scrim and the scan sweep keeps it
+   alive, so phones get a real hero instead of empty space */
 @media(max-width:760px){
-  .hero--video .hero__visual{display:none}
-  .hero--video{min-height:auto;padding-top:96px;padding-bottom:56px}
+  .hero--video .hero__visual{display:block}
+  .hero-portal{background:#05080b url('images/hero-poster.webp') center/cover no-repeat}
+  .hero-portal__vid{display:none}
+  .hero--video{min-height:90svh;padding-top:96px;padding-bottom:56px}
 }
