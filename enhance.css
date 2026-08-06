@@ -217,7 +217,7 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
 .why-slider.swiper-initialized .swiper-slide .ws-cap,
 .why-slider.swiper-initialized .swiper-slide .ws-text,
 .why-slider.swiper-initialized .swiper-slide .chip-row .chip,
-.why-slider.swiper-initialized .swiper-slide .ws-body .card__link{
+.why-slider.swiper-initialized .swiper-slide .ws-left-in .card__link{
   opacity:0; translate:0 22px;
   transition:opacity .65s var(--ease-out-expo), translate .65s var(--ease-out-expo);
 }
@@ -225,7 +225,7 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
 .why-slider .swiper-slide-active .ws-cap,
 .why-slider .swiper-slide-active .ws-text,
 .why-slider .swiper-slide-active .chip-row .chip,
-.why-slider .swiper-slide-active .ws-body .card__link{ opacity:1; translate:0 }
+.why-slider .swiper-slide-active .ws-left-in .card__link{ opacity:1; translate:0 }
 .why-slider .swiper-slide-active .ws-title{ transition-delay:.08s }
 .why-slider .swiper-slide-active .ws-cap{ transition-delay:.18s }
 .why-slider .swiper-slide-active .ws-text{ transition-delay:.22s }
@@ -238,7 +238,7 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
 .why-slider .swiper-slide-active .chip-row .chip:nth-child(7){ transition-delay:.66s }
 .why-slider .swiper-slide-active .chip-row .chip:nth-child(8){ transition-delay:.72s }
 .why-slider .swiper-slide-active .chip-row .chip:nth-child(9){ transition-delay:.78s }
-.why-slider .swiper-slide-active .ws-body .card__link{ transition-delay:.84s }
+.why-slider .swiper-slide-active .ws-left-in .card__link{ transition-delay:.84s }
 /* title underline draws itself under the active slide's heading */
 .why-slider .ws-title{ position:relative; padding-bottom:10px }
 .why-slider .ws-title::after{
@@ -256,7 +256,7 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
 @media (prefers-reduced-motion:reduce){
   .why-slider .swiper-slide .ws-title, .why-slider .swiper-slide .ws-cap,
   .why-slider .swiper-slide .ws-text, .why-slider .swiper-slide .chip-row .chip,
-  .why-slider .swiper-slide .ws-body .card__link{ opacity:1; translate:0; transition:none }
+  .why-slider .swiper-slide .ws-left-in .card__link{ opacity:1; translate:0; transition:none }
   .why-slider .ws-title::after{ transition:none }
   .why-slider .swiper-slide-active .ws-right.ws-shot{ animation:none }
 }

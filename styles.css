@@ -553,10 +553,21 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
 /* services slider: titles are full words ("IoT solutions"), so smaller than the flagship's one-word titles — fits the narrow left panel without overflowing */
 #services .ws-title{font-size:clamp(1.8rem,3vw,3.1rem);line-height:1.08;word-break:break-word}
 #services .ws-cap{margin-top:14px}
-/* narrower left, wider right so the detail + chips breathe (home flagship stays 50/50) */
+/* the left panel now carries the whole narrative (title, caption, description,
+   CTA) so it reads as an intentional text column instead of an empty half;
+   the photo on the right holds the capability chips as floating tags. */
+.ws-left-in .ws-text{margin-top:22px;color:#e9f2f6;max-width:480px}
+.ws-left-in .card__link{display:inline-block;margin-top:26px;color:#fff}
+/* right half: chips float over the photo as a centred tag cloud */
+.ws-right .chip-row{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;
+  align-content:center;max-width:560px;margin:0 auto}
+.ws-right .chip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+  color:#fff;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  box-shadow:0 6px 18px -8px rgba(0,0,0,.6)}
+/* balanced split so the text column breathes (home flagship stays 50/50) */
 @media(min-width:641px){
-  #services .ws-left{width:40%}
-  #services .ws-right{width:60%}
+  #services .ws-left{width:46%}
+  #services .ws-right{width:54%}
 }
 .why-slider .swiper-pagination{right:16px;left:auto}
 .why-slider .swiper-pagination-bullet{width:12px;height:12px;background:#fff;opacity:.45;transition:.3s}
