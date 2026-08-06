@@ -65,7 +65,7 @@ html[data-theme="light"]{
 /* light mode: keep the nav a frosted white bar at all times so links stay
    readable over the dark home hero AND over the lemon pages */
 html[data-theme="light"] .nav{background:rgba(255,255,255,.72);
-  backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
+  -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
 html[data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.88)}
 html[data-theme="light"] .nav-links > li > a:not(.btn):hover{background:rgba(4,40,58,.06)}
 html[data-theme="light"] .nav-menu{background:rgba(255,255,255,.97)}
@@ -191,7 +191,7 @@ h1,h2,h3,.display,.h2{text-wrap:balance}
   background:var(--grad-line);box-shadow:0 0 12px rgba(47,168,239,.6)}
 .to-top{position:fixed;right:22px;bottom:22px;z-index:55;width:46px;height:46px;
   border-radius:50%;border:1px solid var(--line-2);background:rgba(10,10,10,.6);
-  backdrop-filter:blur(10px);color:var(--c6);font-size:20px;cursor:pointer;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--c6);font-size:20px;cursor:pointer;
   display:grid;place-items:center;opacity:0;transform:translateY(20px);
   transition:opacity var(--dur-1) ease,transform var(--dur-2) var(--ease-out),background .3s ease}
 .to-top.show{opacity:1;transform:none}
@@ -271,7 +271,7 @@ h1,h2,h3,.display,.h2{text-wrap:balance}
   justify-content:space-between;padding:16px 7vw;background:transparent;
   border-bottom:1px solid transparent;transition:all .45s ease}
 .nav.scrolled{padding:12px 7vw;background:rgba(10,10,10,.55);
-  backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
+  -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
 /* Brand lockup. The globe artwork is a fixed-colour badge and must render
    identically in both themes, so .logo__img carries no theme token. The
    wordmark beside it IS text, so it uses theme tokens to stay readable on
@@ -310,7 +310,7 @@ h1,h2,h3,.display,.h2{text-wrap:balance}
 .nav-caret{width:13px;height:13px;transition:transform .25s ease}
 .nav-item--has-menu:hover .nav-caret,.nav-item--has-menu:focus-within .nav-caret{transform:rotate(180deg)}
 .nav-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:232px;list-style:none;padding:8px;
-  border-radius:14px;background:rgba(16,15,12,.94);backdrop-filter:blur(16px) saturate(140%);
+  border-radius:14px;background:rgba(16,15,12,.94);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
   border:1px solid var(--line-2);box-shadow:0 20px 44px -16px rgba(0,0,0,.7);
   opacity:0;transform:translateY(10px) scale(.98);transform-origin:top left;pointer-events:none;
   transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-2) var(--ease-out-expo);z-index:60}
@@ -378,7 +378,7 @@ html[data-theme="light"] .theme-toggle .ico-moon{display:block}
 .grid--3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
 .grid--4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
-  padding:32px;backdrop-filter:blur(8px);
+  padding:32px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   transition:transform var(--dur-2) var(--ease-out),border-color .3s ease,background .3s ease;
   transform-style:preserve-3d}
 .card:hover{transform:translateY(-6px);border-color:var(--line-2);background:var(--glass-2)}
@@ -419,7 +419,7 @@ html[data-theme="light"] .theme-toggle .ico-moon{display:block}
 .split{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
 .split__media{min-height:320px;border-radius:var(--r-lg);border:1px solid var(--line-2);
   background:radial-gradient(130% 110% at 100% 0%,rgba(47,168,239,.14),transparent 55%),var(--card);
-  backdrop-filter:blur(10px);box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:var(--shadow);
   display:grid;place-content:center;gap:18px;padding:30px;overflow:hidden}
 
 /* ---------- steps / timeline ---------- */
@@ -474,7 +474,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
 
 /* ---------- footer ---------- */
 .footer{position:relative;z-index:1;border-top:1px solid var(--line);margin-top:40px;
-  background:rgba(10,10,10,.5);backdrop-filter:blur(12px)}
+  background:rgba(10,10,10,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 /* luminous hairline — the footer "catches light" where it meets the page */
 .footer::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);
   width:min(720px,80%);height:1px;pointer-events:none;
@@ -581,7 +581,7 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
   .nav-toggle{display:flex}
   .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;
     align-items:flex-start;gap:24px;padding:108px 34px;background:rgba(10,10,10,.94);
-    backdrop-filter:blur(18px);transform:translateX(100%);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);transform:translateX(100%);
     transition:transform var(--dur-2) var(--ease-out-expo);
     border-left:1px solid var(--line)}
   .nav-links.open{transform:translateX(0)}
@@ -597,7 +597,7 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
   .footer__col a{padding:10px 0}
   .nav-caret{display:none}
   .nav-menu{position:static;opacity:1;transform:none;pointer-events:auto;min-width:0;
-    padding:4px 0 0 16px;background:none;border:0;box-shadow:none;backdrop-filter:none}
+    padding:4px 0 0 16px;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
   .nav-menu a{padding:8px 0;font-size:.98rem}
   .split{grid-template-columns:1fr;gap:30px}
   .kpis{grid-template-columns:1fr}
@@ -623,7 +623,7 @@ a.chip{min-height:44px;display:inline-flex;align-items:center}
 #services .swiper-pagination-bullet::before{content:"";position:absolute;inset:-9px}
 .swiper-pause{position:absolute;right:16px;bottom:14px;z-index:12;width:44px;height:44px;
   border-radius:50%;border:1px solid var(--line-2);background:rgba(10,10,10,.55);color:var(--ink);
-  font-size:13px;cursor:pointer;backdrop-filter:blur(8px)}
+  font-size:13px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .swiper-pause:hover{border-color:var(--c5)}
 /* set-in-type fact line — replaces the count-up stat row */
 .hero-fact{margin-top:34px;font-family:var(--font-display);font-size:clamp(.95rem,1.4vw,1.08rem);

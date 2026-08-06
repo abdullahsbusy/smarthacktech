@@ -177,7 +177,7 @@
      inside a .section--light band (where --ink flips dark) */
   color:#f3f7ec;
   background:rgba(10,10,10,.6); border:1px solid var(--line-2);
-  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }
 .media-photo .media-tag::before{
   content:""; width:7px; height:7px; border-radius:50%; background:var(--c5);
@@ -266,13 +266,13 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
    ============================================================ */
 .cp{position:fixed;inset:0;z-index:200;display:none}
 .cp.is-open{display:block}
-.cp__scrim{position:absolute;inset:0;background:rgba(8,10,8,.6);backdrop-filter:blur(6px);
+.cp__scrim{position:absolute;inset:0;background:rgba(8,10,8,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   animation:cp-fade var(--dur-1) var(--ease-out)}
 .cp__panel{position:absolute;left:50%;top:14vh;transform:translateX(-50%);
   width:min(620px,92vw);border-radius:18px;overflow:hidden;
   background:rgba(24,29,23,.92);border:1px solid var(--line-2);
   box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 40px -18px rgba(47,168,239,.45);
-  backdrop-filter:blur(20px) saturate(130%);
+  -webkit-backdrop-filter:blur(20px) saturate(130%);backdrop-filter:blur(20px) saturate(130%);
   animation:cp-pop var(--dur-2) var(--ease-out-expo)}
 html[data-theme="light"] .cp__panel{background:rgba(255,255,255,.95)}
 html[data-theme="light"] .cp__scrim{background:rgba(20,30,20,.35)}
@@ -397,7 +397,7 @@ html[data-theme="light"] .cp__scrim{background:rgba(20,30,20,.35)}
 #services .why-slider .swiper-button-prev,
 #services .why-slider .swiper-button-next{
   width:44px; height:44px; border-radius:50%;
-  background:rgba(10,10,10,.55); border:1px solid var(--line-2); backdrop-filter:blur(8px);
+  background:rgba(10,10,10,.55); border:1px solid var(--line-2); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }
 #services .why-slider .swiper-button-prev{ left:2px }
 #services .why-slider .swiper-button-next{ right:2px }
@@ -465,7 +465,7 @@ video::-webkit-media-controls-overlay-enclosure{
 .tcard:not(.is-active) .tcard__content{ padding:18px 14px }
 .tcard__head{ display:flex; align-items:center; gap:13px; white-space:nowrap }
 .tcard__badge{ flex:none; width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
-  background:rgba(10,10,10,.55); border:1px solid rgba(47,168,239,.45); backdrop-filter:blur(8px);
+  background:rgba(10,10,10,.55); border:1px solid rgba(47,168,239,.45); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   color:var(--c6); box-shadow:0 6px 18px rgba(0,0,0,.4); transition:background .4s, color .4s, border-color .4s }
 .tcard__badge svg{ width:22px; height:22px }
 .tcard.is-active .tcard__badge{ background:linear-gradient(140deg,var(--c5),var(--c4)); color:#0A0A0A;
@@ -510,7 +510,7 @@ html[data-theme="light"] .tcard__role{ color:#C6E1F7 }
 .work-card .card__text{flex:1}
 .work-tag{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--font-display);
   font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:999px;
-  background:rgba(10,10,10,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  background:rgba(10,10,10,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   border:1px solid var(--line-2);color:var(--c6)}
 .work-result{display:flex;align-items:center;gap:9px;margin-top:16px;padding-top:15px;
   border-top:1px solid var(--line);font-size:.9rem;color:var(--ink);font-weight:500}
