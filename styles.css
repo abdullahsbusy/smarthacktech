@@ -376,6 +376,11 @@ html[data-theme="light"] .theme-toggle .ico-moon{display:block}
 /* ---------- grids / cards ---------- */
 .grid--2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
 .grid--3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+/* exactly-three-card sections: hold a clean 3-across, then stack to a single
+   centred column, skipping the lopsided 2+1 orphan that auto-fit produces in
+   the in-between tablet band. (Not applied to 6-card grids, which keep auto-fit.) */
+.grid--trio{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.grid--trio{grid-template-columns:1fr;max-width:440px;margin-inline:auto}}
 .grid--4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
   padding:32px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
