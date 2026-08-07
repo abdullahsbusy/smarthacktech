@@ -63,17 +63,28 @@
 /* flex-wrap (not grid) so a short last row stays centred instead of
    left-aligning and leaving an orphan tile */
 .tech-grid{display:flex;flex-wrap:wrap;justify-content:center;
-  gap:12px;max-width:940px;margin:16px auto 0}
-.tech-item{flex:0 1 auto;min-width:146px;
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  padding:15px 18px;border-radius:14px;text-align:center;
-  background:var(--card);border:1px solid var(--line);
-  font-family:var(--font-display);font-weight:600;font-size:.95rem;color:var(--head);
-  transition:transform var(--dur-2) var(--ease-out),border-color .3s ease,box-shadow .3s ease}
-.tech-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;
-  background:var(--grad-btn);box-shadow:0 0 9px -1px rgba(255,164,0,.6)}
-.tech-item:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:var(--shadow-sm)}
-@media(max-width:520px){.tech-item{min-width:calc(50% - 6px);padding:13px 10px;font-size:.88rem}}
+  gap:14px;max-width:980px;margin:26px auto 0}
+/* each tile reads as a small designed card: a gradient face for depth, a real
+   shadow for elevation and a solid accent token (not a floating dot) that gives
+   the label an anchor. Always sits on a .section--light band, so light values
+   are safe. */
+.tech-item{flex:0 1 auto;min-width:166px;
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px 14px 15px;border-radius:14px;text-align:left;
+  background:linear-gradient(158deg,#ffffff,#e8f1fa);
+  border:1px solid rgba(8,80,127,.16);
+  box-shadow:0 1px 1px rgba(8,34,51,.05),0 14px 26px -20px rgba(8,34,51,.6);
+  font-family:var(--font-display);font-weight:600;font-size:.95rem;color:#12314a;letter-spacing:.01em;
+  transition:transform .32s var(--ease-out),border-color .3s ease,box-shadow .3s ease}
+.tech-item::before{content:"";flex:none;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 50% 38%,#FFC451,#F5A100 64%);
+  box-shadow:0 0 0 4px rgba(255,164,0,.14),0 3px 8px -2px rgba(245,161,0,.55);
+  transition:box-shadow .3s ease}
+.tech-item:hover{transform:translateY(-5px);
+  border-color:rgba(47,168,239,.42);
+  box-shadow:0 3px 5px rgba(8,34,51,.06),0 22px 36px -18px rgba(8,34,51,.5)}
+.tech-item:hover::before{box-shadow:0 0 0 5px rgba(47,168,239,.16),0 3px 10px -2px rgba(245,161,0,.6)}
+@media(max-width:520px){.tech-item{min-width:calc(50% - 7px);padding:13px 13px;font-size:.88rem;gap:10px}}
 
 /* ---- about: trust numbers ---- */
 .stat-num{display:block;font-family:var(--font-display);font-weight:700;
