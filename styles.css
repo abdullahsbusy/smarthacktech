@@ -618,6 +618,14 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
     background:rgba(3,6,10,.6);opacity:0;pointer-events:none;
     transition:opacity var(--dur-2) var(--ease-out)}
   .nav-toggle.open::after{opacity:1}
+  /* the scrolled nav's backdrop-filter blur repaints on every scroll frame,
+     which is the main cause of scroll jank on phones — drop it for a solid bar */
+  .nav.scrolled{background:rgba(6,9,13,.96);-webkit-backdrop-filter:none;backdrop-filter:none}
+  /* the desktop "active" pill (filled gradient + sheen) looks dislocated among
+     the drawer's plain text links; render it as a plain accent link, aligned */
+  .nav-links > li > a.active{background:none;color:var(--c6);border-color:transparent;
+    box-shadow:none;border-radius:0;padding-left:0;overflow:visible}
+  .nav-links > li > a.active::after{display:none}
   /* drawer items cascade in after the panel lands */
   .nav-links > li{width:100%;opacity:0;translate:18px 0;
     transition:opacity .35s var(--ease-out),translate .35s var(--ease-out)}

@@ -221,11 +221,14 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
   opacity:0; translate:0 22px;
   transition:opacity .65s var(--ease-out-expo), translate .65s var(--ease-out-expo);
 }
-.why-slider .swiper-slide-active .ws-title,
-.why-slider .swiper-slide-active .ws-cap,
-.why-slider .swiper-slide-active .ws-text,
-.why-slider .swiper-slide-active .chip-row .chip,
-.why-slider .swiper-slide-active .ws-left-in .card__link{ opacity:1; translate:0 }
+/* NOTE: these must carry .swiper-initialized too, or they lose the specificity
+   race with the base rule above (4 classes vs 3) and the active slide's content
+   stays stuck at opacity:0 — i.e. the whole slide looks empty. */
+.why-slider.swiper-initialized .swiper-slide-active .ws-title,
+.why-slider.swiper-initialized .swiper-slide-active .ws-cap,
+.why-slider.swiper-initialized .swiper-slide-active .ws-text,
+.why-slider.swiper-initialized .swiper-slide-active .chip-row .chip,
+.why-slider.swiper-initialized .swiper-slide-active .ws-left-in .card__link{ opacity:1; translate:0 }
 .why-slider .swiper-slide-active .ws-title{ transition-delay:.08s }
 .why-slider .swiper-slide-active .ws-cap{ transition-delay:.18s }
 .why-slider .swiper-slide-active .ws-text{ transition-delay:.22s }
