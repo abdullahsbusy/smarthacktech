@@ -86,6 +86,92 @@
 .tech-item:hover::before{box-shadow:0 0 0 5px rgba(47,168,239,.16),0 3px 10px -2px rgba(245,161,0,.6)}
 @media(max-width:520px){.tech-item{min-width:calc(50% - 7px);padding:13px 13px;font-size:.88rem;gap:10px}}
 
+/* ============================================================
+   ORBIT — the "constellation" technology section. The major
+   technologies orbit a central heading on concentric rings,
+   labels stay upright. Themed: a lit dark field in dark mode,
+   a clean light field in light mode. Collapses to a centred
+   chip list on phones (an orbit can't fit a small screen).
+   ============================================================ */
+.section--orbit{position:relative;overflow:hidden;
+  background:radial-gradient(125% 120% at 50% 20%, #0b1524 0%, #060a11 62%)}
+html[data-theme="light"] .section--orbit{
+  background:radial-gradient(125% 120% at 50% 18%, #f3f8fe 0%, #e4eef8 72%)}
+
+.orbit{position:relative;width:min(760px,92vw);aspect-ratio:1;margin:12px auto 0;display:grid;place-items:center;
+  /* tokens flip per theme so one component serves both */
+  --ring-line:rgba(140,190,235,.15); --ring-sweep:rgba(47,168,239,.55);
+  --pill-a:rgba(60,178,246,.96); --pill-b:rgba(11,84,138,.96); --pill-bd:rgba(174,214,247,.5);
+  --pill-fx:0 10px 24px -10px rgba(4,22,40,.85), 0 0 24px -6px rgba(47,168,239,.6), inset 0 1px 0 rgba(255,255,255,.28);
+  --dot-fx:0 0 0 2px rgba(255,255,255,.22), 0 0 12px rgba(120,200,255,.85);
+  --node-c:#cfeaff; --node-fx:0 0 10px 2px rgba(120,200,255,.85)}
+html[data-theme="light"] .orbit{
+  --ring-line:rgba(8,80,127,.18); --ring-sweep:rgba(10,97,153,.5);
+  --pill-a:rgba(20,120,190,.98); --pill-b:rgba(8,62,104,.98); --pill-bd:rgba(255,255,255,.55);
+  --pill-fx:0 12px 26px -12px rgba(8,34,51,.45), 0 2px 6px rgba(8,34,51,.14), inset 0 1px 0 rgba(255,255,255,.3);
+  --dot-fx:0 0 0 2px rgba(255,255,255,.6), 0 2px 6px rgba(8,34,51,.3);
+  --node-c:#2FA8EF; --node-fx:0 0 7px 1px rgba(47,168,239,.5)}
+
+.orbit__ring{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);
+  border:1px solid var(--ring-line);pointer-events:none}
+.orbit__ring--1{width:54%;height:54%}
+.orbit__ring--2{width:80%;height:80%}
+.orbit__ring--3{width:98%;height:98%}
+.orbit__ring::after{content:"";position:absolute;inset:-1px;border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0 77%, var(--ring-sweep) 88%, transparent 97%);
+  -webkit-mask:radial-gradient(closest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  mask:radial-gradient(closest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  animation:orbit-ring 16s linear infinite}
+.orbit__ring--2::after{animation-duration:24s;animation-direction:reverse}
+.orbit__ring--3::after{animation-duration:34s}
+
+.orbit__core{position:relative;z-index:5;text-align:center;max-width:270px}
+.orbit__core .eyebrow{display:block;margin-bottom:12px}
+.orbit__core .h2{font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.07;margin:0}
+
+.orbit__pills{position:absolute;inset:0;z-index:4}
+.orbit-pill{position:absolute;top:50%;left:50%;transform-origin:0 0;
+  animation:orbit-cw var(--spin,84s) linear infinite;
+  animation-delay:calc(var(--spin,84s) * -1 * var(--a0))}
+.orbit-pill__arm{transform:translateX(var(--r))}
+.orbit-pill__spin{animation:orbit-ccw var(--spin,84s) linear infinite;
+  animation-delay:calc(var(--spin,84s) * -1 * var(--a0))}
+.orbit-pill__chip{position:absolute;transform:translate(-50%,-50%);
+  display:flex;align-items:center;gap:9px;white-space:nowrap;
+  padding:8px 16px 8px 9px;border-radius:999px;
+  background:linear-gradient(135deg, var(--pill-a), var(--pill-b));
+  border:1px solid var(--pill-bd);box-shadow:var(--pill-fx);
+  color:#fff;font-family:var(--font-display);font-weight:600;font-size:.9rem;letter-spacing:.01em;
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.orbit-pill__dot{flex:none;width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle at 40% 34%, #ffffff, #a9d8f7 55%, #2FA8EF);box-shadow:var(--dot-fx)}
+
+.orbit-node{position:absolute;top:50%;left:50%;transform-origin:0 0;
+  animation:orbit-cw var(--spin,84s) linear infinite;
+  animation-delay:calc(var(--spin,84s) * -1 * var(--a0))}
+.orbit-node__arm{transform:translateX(var(--r))}
+.orbit-node i{position:absolute;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;
+  background:var(--node-c);box-shadow:var(--node-fx)}
+
+@keyframes orbit-cw{to{transform:rotate(360deg)}}
+@keyframes orbit-ccw{to{transform:rotate(-360deg)}}
+@keyframes orbit-ring{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* phones: no room for an orbit — become a centred list of the same chips */
+@media(max-width:720px){
+  .orbit{aspect-ratio:auto;display:block;width:100%;margin-top:26px}
+  .orbit__ring,.orbit-node{display:none}
+  .orbit__core{max-width:none;margin-bottom:22px}
+  .orbit__pills{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .orbit-pill{position:static;animation:none;top:auto;left:auto;transform-origin:center}
+  .orbit-pill__arm{transform:none}
+  .orbit-pill__spin{animation:none}
+  .orbit-pill__chip{position:static;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .orbit-pill,.orbit-pill__spin,.orbit-node,.orbit__ring::after{animation:none}
+}
+
 /* ---- about: trust numbers ---- */
 .stat-num{display:block;font-family:var(--font-display);font-weight:700;
   font-size:clamp(2.2rem,4vw,2.8rem);line-height:1;margin-bottom:10px;

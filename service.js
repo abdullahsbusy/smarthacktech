@@ -387,19 +387,42 @@
       '<p class="card__text">' + esc(f[1]) + "</p></article>";
   }).join(""));
 
-  /* ---------- technologies / supporting lists ---------- */
+  /* ---------- technologies: orbital constellation ----------
+     The major technologies orbit the section heading on two rings. We keep it
+     to the six most important (a clean constellation, not a crowded one) and
+     distribute them evenly, inner ring then outer, offset so they interleave. */
   if (svc.techGroups && svc.techGroups.length) {
     if (svc.techTitle) set("svc-tech-title", svc.techTitle);
-    // A single list needs no label — the section heading already names it.
-    // Two lists get centred labels so they stay distinguishable.
-    var multi = svc.techGroups.length > 1;
-    set("svc-tech-groups", svc.techGroups.map(function (g) {
-      return '<div class="tech-group">' +
-        (multi ? '<span class="eyebrow center">' + esc(g.label) + "</span>" : "") +
-        '<div class="tech-grid">' +
-        g.items.map(function (t) { return '<span class="tech-item">' + esc(t) + "</span>"; }).join("") +
-        "</div></div>";
-    }).join(""));
+
+    var items = [];
+    svc.techGroups.forEach(function (g) {
+      g.items.forEach(function (t) { if (items.indexOf(t) < 0) items.push(t); });
+    });
+    var major = items.slice(0, 6);
+
+    function orbitPill(label, a0, r) {
+      return '<div class="orbit-pill" style="--a0:' + a0.toFixed(3) + ';--r:' + r + 'px">' +
+        '<div class="orbit-pill__arm"><div class="orbit-pill__spin"><div class="orbit-pill__chip">' +
+        '<span class="orbit-pill__dot"></span>' + esc(label) + "</div></div></div></div>";
+    }
+    function ring(list, r, offset) {
+      var out = "", k = list.length;
+      for (var i = 0; i < k; i++) {
+        var a0 = (((360 / k) * i + offset) % 360) / 360;
+        out += orbitPill(list[i], a0, r);
+      }
+      return out;
+    }
+    var innerN = Math.ceil(major.length / 2);
+    var html = ring(major.slice(0, innerN), 210, 90) + ring(major.slice(innerN), 315, 30);
+
+    // a few drifting light-nodes for atmosphere
+    [[0.06, 210], [0.55, 315], [0.30, 380], [0.80, 380]].forEach(function (n) {
+      html += '<div class="orbit-node" style="--a0:' + n[0] + ';--r:' + n[1] +
+        'px"><div class="orbit-node__arm"><i></i></div></div>';
+    });
+
+    set("svc-tech-orbit", html);
     show("svc-tech-sec");
   }
 
