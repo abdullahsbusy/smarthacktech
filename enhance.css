@@ -627,6 +627,15 @@ html.js .tcard.reveal--pop.show{ opacity:1;
   .team-accordion{ flex-direction:column; height:auto; gap:12px; perspective:none }
   .tcard{ flex:none; height:84px; transform:none !important;
     transition:height .55s var(--ease-io), box-shadow .45s, border-color .45s }
+  /* the blanket transform:none!important above (it kills the desktop
+     hover-tilt, irrelevant on touch) was also flattening the pop-in to a
+     plain fade here — no bounce. Same curve as desktop, tilt dropped
+     since there's no hover to drive it on mobile anyway. */
+  html.js .tcard.reveal--pop{ transform:translateY(22px) scale(.88) !important;
+    transition:opacity var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
+               transform var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
+               height .55s var(--ease-io), box-shadow .45s, border-color .45s !important }
+  html.js .tcard.reveal--pop.show{ transform:none !important }
   .tcard.is-active{ height:324px }
   .tcard__meta{ opacity:1; transform:none }       /* full-width rows — names always readable */
   .tcard__bio{ display:none }
