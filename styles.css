@@ -506,6 +506,10 @@ html.js .reveal{opacity:0;transform:translateY(44px);filter:blur(6px);
 .reveal--left{transform:translateX(-46px)}
 .reveal--right{transform:translateX(46px)}
 .reveal--scale{transform:scale(.94)}
+/* springy pop — same fade/rise machinery, landing on an overshoot curve
+   instead of the expo, for the step cards & team cards */
+html.js .reveal--pop{transform:translateY(30px) scale(.82);
+  transition-timing-function:cubic-bezier(.26,.53,.74,1.48)}
 html.js .reveal.show{opacity:1;transform:none;filter:none}
 
 /* ---------- accessibility & app chrome ---------- */

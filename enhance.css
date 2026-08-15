@@ -614,6 +614,15 @@ video::-webkit-media-controls-overlay-enclosure{
   opacity:0; transform:translateY(10px); transition:opacity .45s .18s ease, transform .45s .18s ease }
 .tcard.is-active .tcard__bio{ opacity:1; transform:none }
 
+/* pop-in entrance for the cards themselves — folded together with the
+   tilt transform above so rotateX/rotateY keep working once settled */
+html.js .tcard.reveal--pop{ opacity:0;
+  transform:translateY(30px) scale(.82) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:opacity var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
+             transform var(--dur-3) cubic-bezier(.26,.53,.74,1.48) }
+html.js .tcard.reveal--pop.show{ opacity:1;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) }
+
 @media (max-width:720px){
   .team-accordion{ flex-direction:column; height:auto; gap:12px; perspective:none }
   .tcard{ flex:none; height:84px; transform:none !important;
@@ -833,6 +842,29 @@ a.pf-card:focus-visible{outline:2px solid var(--c5);outline-offset:3px}
   }
 }
 
+/* ---- M3b. scroll-driven pop for the "founded → today" steps ----
+   Same view() scrubbing as M3, but with a touch of scale overshoot so
+   the entrance feels springy instead of a flat fade+rise. Only steps
+   opt in (via .reveal--pop); every other M3 grid is untouched. */
+@supports (animation-timeline: view()) {
+  html.fx-on .steps > .reveal--pop{
+    opacity:1; transform:none; filter:none;
+    animation-name:ht-view-in-pop;
+    animation-duration:1s;
+    animation-duration:auto;
+    animation-timing-function:linear;
+    animation-fill-mode:backwards;
+    animation-timeline:view(block);
+    animation-range:entry 0% entry 52%;
+  }
+  html.fx-on .steps > .reveal--pop:nth-child(3n+2){ animation-range:entry 8% entry 60%; }
+  html.fx-on .steps > .reveal--pop:nth-child(3n){ animation-range:entry 16% entry 68%; }
+  @keyframes ht-view-in-pop{
+    from{ opacity:0; translate:0 30px; scale:.82; filter:blur(6px) }
+    65%{ scale:1.03 }
+  }
+}
+
 /* ---- M4. hero entrance choreography (index) ----
    The copy already staggers in via .reveal delays; the backdrop
    video performs a slow 1.06→1 settle underneath it and the scroll
@@ -878,6 +910,7 @@ html.fx-on .scroll-hint{
   .eyebrow::after{ display:none }
   .nav-menu > li{ opacity:1; translate:none; transition:none }
   .scroll-hint{ opacity:1 }
+  .tcard.reveal--pop{ opacity:1; transform:none; transition:none }
 }
 
 /* mobile: keep the hero visual, but as a still poster (87KB) rather than the
