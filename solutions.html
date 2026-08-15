@@ -62,7 +62,7 @@
   </div>
   <div class="svc-stack">
 
-    <article class="svc-card" style="--img:url('images/circuit.webp')">
+    <article class="svc-card" style="--img:url('images/circuit.webp');--i:0">
       <div class="svc-card__inner">
         <span class="svc-card__no">01 &middot; IoT</span>
         <h3 class="svc-card__title">IoT <span class="accent">solutions</span></h3>
@@ -75,7 +75,7 @@
       </div>
     </article>
 
-    <article class="svc-card" style="--img:url('images/smart-home.webp')">
+    <article class="svc-card" style="--img:url('images/smart-home.webp');--i:1">
       <div class="svc-card__inner">
         <span class="svc-card__no">02 &middot; Smart Home</span>
         <h3 class="svc-card__title">Smart home &amp; <span class="accent">automation</span></h3>
@@ -88,7 +88,7 @@
       </div>
     </article>
 
-    <article class="svc-card" style="--img:url('images/ai.webp')">
+    <article class="svc-card" style="--img:url('images/ai.webp');--i:2">
       <div class="svc-card__inner">
         <span class="svc-card__no">03 &middot; AI</span>
         <h3 class="svc-card__title">AI &amp; <span class="accent">automation</span></h3>
@@ -101,7 +101,7 @@
       </div>
     </article>
 
-    <article class="svc-card" style="--img:url('images/security.webp')">
+    <article class="svc-card" style="--img:url('images/security.webp');--i:3">
       <div class="svc-card__inner">
         <span class="svc-card__no">04 &middot; Security</span>
         <h3 class="svc-card__title">Security &amp; <span class="accent">surveillance</span></h3>
@@ -114,7 +114,7 @@
       </div>
     </article>
 
-    <article class="svc-card" style="--img:url('images/software.webp')">
+    <article class="svc-card" style="--img:url('images/software.webp');--i:4">
       <div class="svc-card__inner">
         <span class="svc-card__no">05 &middot; Software</span>
         <h3 class="svc-card__title">Software <span class="accent">development</span></h3>
@@ -127,7 +127,7 @@
       </div>
     </article>
 
-    <article class="svc-card" style="--img:url('images/training.webp')">
+    <article class="svc-card" style="--img:url('images/training.webp');--i:5">
       <div class="svc-card__inner">
         <span class="svc-card__no">06 &middot; Training</span>
         <h3 class="svc-card__title">Training &amp; <span class="accent">education</span></h3>
@@ -256,19 +256,19 @@
   mm.add("(min-width: 900px)", function () {
     var cards = gsap.utils.toArray(".svc-card");
     if (cards.length < 2) return;
-    var last = cards[cards.length - 1];
+    // The cards stack via CSS position:sticky (which exits cleanly into the
+    // next section). GSAP only scales each card back as the next one rises to
+    // cover it, so the covered cards recede into a deck.
     cards.forEach(function (card, i) {
-      var isLast = i === cards.length - 1;
-      var tween = gsap.to(card, { scale: isLast ? 1 : 0.86, ease: "none" });
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 82px",
-        endTrigger: last,
-        end: "center center",
-        pin: true,
-        pinSpacing: false,
-        scrub: 0.5,
-        animation: tween
+      if (i === cards.length - 1) return;   // the last card stays full size
+      gsap.to(card, {
+        scale: 0.92, ease: "none",
+        scrollTrigger: {
+          trigger: cards[i + 1],
+          start: "top bottom",
+          end: "top " + (88 + i * 13),
+          scrub: 0.5
+        }
       });
     });
   });

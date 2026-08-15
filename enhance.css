@@ -899,10 +899,11 @@ html.fx-on .scroll-hint{
    ============================================================ */
 .svc-stack-sec{padding-top:clamp(40px,6vw,80px);padding-bottom:clamp(30px,5vw,64px)}
 .svc-stack{position:relative}
-.svc-card{position:relative;width:min(1180px,92vw);margin-inline:auto;min-height:84vh;
+.svc-card{position:sticky;top:calc(88px + var(--i,0) * 13px);
+  width:min(1180px,92vw);margin-inline:auto;min-height:82vh;
   border-radius:28px;overflow:hidden;display:flex;align-items:center;
   background-color:#060a11;background-image:var(--img);background-size:cover;background-position:center;
-  box-shadow:0 40px 90px -46px rgba(0,0,0,.75);will-change:transform}
+  box-shadow:0 40px 90px -46px rgba(0,0,0,.75);will-change:transform;transform-origin:50% 0%}
 .svc-card::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(100deg, rgba(4,9,15,.95) 0%, rgba(4,9,15,.82) 42%, rgba(4,9,15,.44) 78%, rgba(4,9,15,.22) 100%)}
 .svc-card__inner{position:relative;z-index:2;padding:clamp(28px,5vw,72px);max-width:680px;color:#eaf3fb}
@@ -920,6 +921,6 @@ html.fx-on .scroll-hint{
 .svc-card .btn{margin-top:26px}
 .svc-card + .svc-card{margin-top:22px}
 @media(max-width:899px){
-  .svc-card{min-height:auto;transform:none!important}
+  .svc-card{position:static;top:auto;min-height:auto;transform:none!important}
   .svc-card__inner{padding:clamp(26px,7vw,44px)}
 }
