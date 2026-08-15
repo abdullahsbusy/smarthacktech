@@ -5,7 +5,6 @@
 <meta name="google-site-verification" content="uyV2SCN10pPM74JE6XL3p9QUJc0acrOvZtul2GS1Tkg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services, HackTech | IoT, Smart Homes, AI, Security &amp; Software</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.6/swiper-bundle.min.css" integrity="sha384-9kDDKx/5+oRQIb/Ce7grsjaS0AWcNd9aPYY7ubOmUBUO3GovHz5BO0RliSAPq2S/" crossorigin="anonymous">
 <script>document.documentElement.classList.add('js');try{document.documentElement.setAttribute('data-theme',localStorage.getItem('ht-theme')||'dark')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="enhance.css">
@@ -53,151 +52,94 @@
   </div>
 </section>
 
-<!-- 2) THE SIX SERVICE LINES, scroll slider (same effect as the flagship fleet section) -->
-<section class="why-section" id="services">
-  <div class="why-label"><span class="eyebrow">Our Services &middot; What we build</span></div>
-  <div class="why-slider swiper">
-    <div class="swiper-wrapper">
+<!-- 2) THE SIX SERVICE LINES — stacking scroll cards -->
+<section class="svc-stack-sec" id="services">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Our Services &middot; What we build</span>
+      <h2 class="h2">Six service lines, <span class="accent">one team</span></h2>
+    </div>
+  </div>
+  <div class="svc-stack">
 
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">IoT <span class="accent">solutions</span></h3>
-          <p class="ws-cap">Devices &middot; live data</p>
-          <p class="ws-text">Our IoT solutions combine sensors, embedded hardware and cloud software to monitor, automate and optimise operations in real time &mdash; led by our SOTMS fleet-intelligence platform.</p>
-          <a class="card__link" href="/service?s=iot">Explore IoT &rarr;</a>
-        </div>
-      </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/circuit.webp')">
+    <article class="svc-card" style="--img:url('images/circuit.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">01 &middot; IoT</span>
+        <h3 class="svc-card__title">IoT <span class="accent">solutions</span></h3>
+        <p class="svc-card__cap">Devices &middot; live data</p>
+        <p class="svc-card__text">Our IoT solutions combine sensors, embedded hardware and cloud software to monitor, automate and optimise operations in real time &mdash; led by our SOTMS fleet-intelligence platform.</p>
         <div class="chip-row">
-              <span class="chip">Fleet Monitoring</span>
-              <span class="chip">Asset Tracking</span>
-              <span class="chip">Smart Industry</span>
-              <span class="chip">Environmental Monitoring</span>
-              <span class="chip">Agriculture</span>
-              <span class="chip">Energy Monitoring</span>
-              <span class="chip">Custom Embedded Systems</span>
-            </div>
-      </div>
-    </div>
-
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">Smart home &amp; <span class="accent">automation</span></h3>
-          <p class="ws-cap">One app &middot; one voice</p>
-          <p class="ws-text">Intelligent homes and offices where lighting, security, access and energy work together effortlessly &mdash; controlled from a single app or your voice.</p>
-          <a class="card__link" href="/service?s=smarthome">Explore Smart Home &rarr;</a>
+          <span class="chip">Fleet Monitoring</span><span class="chip">Asset Tracking</span><span class="chip">Smart Industry</span><span class="chip">Environmental Monitoring</span><span class="chip">Agriculture</span><span class="chip">Energy Monitoring</span><span class="chip">Custom Embedded Systems</span>
         </div>
+        <a class="btn btn--primary" href="/service?s=iot">Explore IoT &rarr;</a>
       </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/smart-home.webp')">
-        <div class="chip-row">
-              <span class="chip">Smart Lighting</span>
-              <span class="chip">Smart Locks</span>
-              <span class="chip">CCTV Integration</span>
-              <span class="chip">Video Doorbells</span>
-              <span class="chip">Smart Curtains</span>
-              <span class="chip">Climate Control</span>
-              <span class="chip">Energy Monitoring</span>
-              <span class="chip">Voice Assistants</span>
-              <span class="chip">Remote Access</span>
-            </div>
-      </div>
-    </div>
+    </article>
 
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">AI &amp; <span class="accent">automation</span></h3>
-          <p class="ws-cap">Agents &middot; vision &middot; workflows</p>
-          <p class="ws-text">Harness AI to automate repetitive tasks, lift productivity and unlock the insight hiding in your data &mdash; wired into your tools with guardrails and human review.</p>
-          <a class="card__link" href="/service?s=ai">Explore AI Solutions &rarr;</a>
+    <article class="svc-card" style="--img:url('images/smart-home.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">02 &middot; Smart Home</span>
+        <h3 class="svc-card__title">Smart home &amp; <span class="accent">automation</span></h3>
+        <p class="svc-card__cap">One app &middot; one voice</p>
+        <p class="svc-card__text">Intelligent homes and offices where lighting, security, access and energy work together effortlessly &mdash; controlled from a single app or your voice.</p>
+        <div class="chip-row">
+          <span class="chip">Smart Lighting</span><span class="chip">Smart Locks</span><span class="chip">CCTV Integration</span><span class="chip">Video Doorbells</span><span class="chip">Smart Curtains</span><span class="chip">Climate Control</span><span class="chip">Energy Monitoring</span><span class="chip">Voice Assistants</span><span class="chip">Remote Access</span>
         </div>
+        <a class="btn btn--primary" href="/service?s=smarthome">Explore Smart Home &rarr;</a>
       </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/ai.webp')">
-        <div class="chip-row">
-              <span class="chip">AI Assistants</span>
-              <span class="chip">Chatbots</span>
-              <span class="chip">Intelligent Agents</span>
-              <span class="chip">Computer Vision</span>
-              <span class="chip">Workflow Automation</span>
-              <span class="chip">Predictive Analytics</span>
-              <span class="chip">OCR &amp; Document Processing</span>
-            </div>
-      </div>
-    </div>
+    </article>
 
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">Security &amp; <span class="accent">surveillance</span></h3>
-          <p class="ws-cap">CCTV &middot; access &middot; biometrics</p>
-          <p class="ws-text">Protect your people, property and operations with intelligent surveillance and access control &mdash; professionally surveyed, installed, configured and monitored end to end.</p>
-          <a class="card__link" href="/service?s=security">Explore Security &rarr;</a>
+    <article class="svc-card" style="--img:url('images/ai.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">03 &middot; AI</span>
+        <h3 class="svc-card__title">AI &amp; <span class="accent">automation</span></h3>
+        <p class="svc-card__cap">Agents &middot; vision &middot; workflows</p>
+        <p class="svc-card__text">Harness AI to automate repetitive tasks, lift productivity and unlock the insight hiding in your data &mdash; wired into your tools with guardrails and human review.</p>
+        <div class="chip-row">
+          <span class="chip">AI Assistants</span><span class="chip">Chatbots</span><span class="chip">Intelligent Agents</span><span class="chip">Computer Vision</span><span class="chip">Workflow Automation</span><span class="chip">Predictive Analytics</span><span class="chip">OCR &amp; Document Processing</span>
         </div>
+        <a class="btn btn--primary" href="/service?s=ai">Explore AI Solutions &rarr;</a>
       </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/security.webp')">
-        <div class="chip-row">
-              <span class="chip">CCTV Systems</span>
-              <span class="chip">IP Cameras</span>
-              <span class="chip">Access Control</span>
-              <span class="chip">Biometric Attendance</span>
-              <span class="chip">Video Analytics</span>
-              <span class="chip">Remote Monitoring</span>
-              <span class="chip">Security Consultation</span>
-            </div>
-      </div>
-    </div>
+    </article>
 
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">Software <span class="accent">development</span></h3>
-          <p class="ws-cap">Web &middot; mobile &middot; SaaS</p>
-          <p class="ws-text">Modern web applications, enterprise platforms, SaaS products and mobile apps engineered around your business &mdash; streamlining operations, never off a template.</p>
-          <a class="card__link" href="/service?s=software">Explore Software Development &rarr;</a>
+    <article class="svc-card" style="--img:url('images/security.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">04 &middot; Security</span>
+        <h3 class="svc-card__title">Security &amp; <span class="accent">surveillance</span></h3>
+        <p class="svc-card__cap">CCTV &middot; access &middot; biometrics</p>
+        <p class="svc-card__text">Protect your people, property and operations with intelligent surveillance and access control &mdash; professionally surveyed, installed, configured and monitored end to end.</p>
+        <div class="chip-row">
+          <span class="chip">CCTV Systems</span><span class="chip">IP Cameras</span><span class="chip">Access Control</span><span class="chip">Biometric Attendance</span><span class="chip">Video Analytics</span><span class="chip">Remote Monitoring</span><span class="chip">Security Consultation</span>
         </div>
+        <a class="btn btn--primary" href="/service?s=security">Explore Security &rarr;</a>
       </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/software.webp')">
-        <div class="chip-row">
-              <span class="chip">Business Websites</span>
-              <span class="chip">Enterprise Applications</span>
-              <span class="chip">SaaS Platforms</span>
-              <span class="chip">Mobile Applications</span>
-              <span class="chip">Admin Dashboards</span>
-              <span class="chip">APIs &amp; Backend Systems</span>
-              <span class="chip">Cloud Integrations</span>
-            </div>
-      </div>
-    </div>
+    </article>
 
-      <div class="swiper-slide">
-      <div class="ws-half ws-left" data-swiper-parallax-y="-16%">
-        <div class="ws-left-in">
-          <h3 class="ws-title">Training &amp; <span class="accent">education</span></h3>
-          <p class="ws-cap">Hands-on &middot; project-based</p>
-          <p class="ws-text">Practical, project-based training and workshops in modern technology and real-world engineering &mdash; taught by engineers who ship commercial products, not theory alone.</p>
-          <a class="card__link" href="/service?s=training">Explore Training &rarr;</a>
+    <article class="svc-card" style="--img:url('images/software.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">05 &middot; Software</span>
+        <h3 class="svc-card__title">Software <span class="accent">development</span></h3>
+        <p class="svc-card__cap">Web &middot; mobile &middot; SaaS</p>
+        <p class="svc-card__text">Modern web applications, enterprise platforms, SaaS products and mobile apps engineered around your business &mdash; streamlining operations, never off a template.</p>
+        <div class="chip-row">
+          <span class="chip">Business Websites</span><span class="chip">Enterprise Applications</span><span class="chip">SaaS Platforms</span><span class="chip">Mobile Applications</span><span class="chip">Admin Dashboards</span><span class="chip">APIs &amp; Backend Systems</span><span class="chip">Cloud Integrations</span>
         </div>
+        <a class="btn btn--primary" href="/service?s=software">Explore Software Development &rarr;</a>
       </div>
-      <div class="ws-half ws-right ws-shot" data-swiper-parallax-y="22%" style="--shot:url('images/training.webp')">
+    </article>
+
+    <article class="svc-card" style="--img:url('images/training.webp')">
+      <div class="svc-card__inner">
+        <span class="svc-card__no">06 &middot; Training</span>
+        <h3 class="svc-card__title">Training &amp; <span class="accent">education</span></h3>
+        <p class="svc-card__cap">Hands-on &middot; project-based</p>
+        <p class="svc-card__text">Practical, project-based training and workshops in modern technology and real-world engineering &mdash; taught by engineers who ship commercial products, not theory alone.</p>
         <div class="chip-row">
-              <span class="chip">Software Development</span>
-              <span class="chip">Artificial Intelligence</span>
-              <span class="chip">IoT Development</span>
-              <span class="chip">Embedded Systems</span>
-              <span class="chip">Computer Vision</span>
-              <span class="chip">Cloud Technologies</span>
-            </div>
+          <span class="chip">Software Development</span><span class="chip">Artificial Intelligence</span><span class="chip">IoT Development</span><span class="chip">Embedded Systems</span><span class="chip">Computer Vision</span><span class="chip">Cloud Technologies</span>
+        </div>
+        <a class="btn btn--primary" href="/service?s=training">Explore Training &rarr;</a>
       </div>
-    </div>
+    </article>
 
-
-
-    </div>
-    <div class="swiper-button-prev" aria-label="Previous service"></div>
-    <div class="swiper-button-next" aria-label="Next service"></div>
-    <div class="swiper-pagination"></div>
   </div>
 </section>
 
@@ -297,39 +239,38 @@
 <script src="app.js"></script>
 <script src="enhance.js"></script>
 <script src="palette.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11.2.6/swiper-bundle.min.js" integrity="sha384-Z8zwe4UlCA9xiPVMGPhmzBsPAEVtt/gabOsU+0A8Lf67I0MjHjP+UzNYng2CtJar" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
+/* Stacking service cards: each big card pins under the nav and scales back a
+   touch as the next scrolls up over it, leaving a receding deck. Desktop only
+   (>=900px) and never for reduced-motion users — on phones the cards just flow. */
 (function () {
-  if (!window.Swiper) return;
-  // WCAG 2.2.2: no auto-advance for reduced-motion users, and everyone
-  // gets a visible pause/play control (hover-pause alone excludes touch).
-  var still = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  var sw = new Swiper('.why-slider', {
-    direction: 'horizontal',
-    loop: true,
-    speed: 600,
-    grabCursor: true,
-    autoHeight: true,
-    keyboard: { enabled: true },
-    autoplay: still ? false : { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
-    navigation: { nextEl: '.why-slider .swiper-button-next', prevEl: '.why-slider .swiper-button-prev' },
-    pagination: { el: '.why-slider .swiper-pagination', clickable: true }
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var mm = gsap.matchMedia();
+  mm.add("(min-width: 900px)", function () {
+    if (reduce) return;
+    var cards = gsap.utils.toArray(".svc-card");
+    if (cards.length < 2) return;
+    var last = cards[cards.length - 1];
+    cards.forEach(function (card, i) {
+      var isLast = i === cards.length - 1;
+      var tween = gsap.to(card, { scale: isLast ? 1 : 0.86, ease: "none" });
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 82px",
+        endTrigger: last,
+        end: "center center",
+        pin: true,
+        pinSpacing: false,
+        scrub: 0.5,
+        animation: tween
+      });
+    });
   });
-  var host = document.querySelector('.why-slider');
-  if (!host || still) return;
-  var btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'swiper-pause';
-  btn.setAttribute('aria-pressed', 'false');
-  btn.setAttribute('aria-label', 'Pause slideshow');
-  btn.textContent = '❚❚';
-  btn.addEventListener('click', function () {
-    var paused = btn.getAttribute('aria-pressed') === 'true';
-    if (paused) { sw.autoplay.start(); btn.textContent = '❚❚'; btn.setAttribute('aria-label', 'Pause slideshow'); }
-    else { sw.autoplay.stop(); btn.textContent = '▶'; btn.setAttribute('aria-label', 'Play slideshow'); }
-    btn.setAttribute('aria-pressed', String(!paused));
-  });
-  host.appendChild(btn);
+  window.addEventListener("load", function () { ScrollTrigger.refresh(); });
 })();
 </script>
 </body>
