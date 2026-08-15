@@ -614,28 +614,23 @@ video::-webkit-media-controls-overlay-enclosure{
   opacity:0; transform:translateY(10px); transition:opacity .45s .18s ease, transform .45s .18s ease }
 .tcard.is-active .tcard__bio{ opacity:1; transform:none }
 
-/* pop-in entrance for the cards themselves — folded together with the
-   tilt transform above so rotateX/rotateY keep working once settled */
-html.js .tcard.reveal--pop{ opacity:0;
-  transform:translateY(30px) scale(.82) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
-  transition:opacity var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
-             transform var(--dur-3) cubic-bezier(.26,.53,.74,1.48) }
-html.js .tcard.reveal--pop.show{ opacity:1;
-  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) }
+/* pop-in entrance for the cards themselves — plays once on page load
+   (not scroll-triggered), so it's already finished by the time anyone
+   arrives via the "Meet the Team" nav link, which jumps straight to
+   #team. A real CSS animation (not a transition) releases the
+   transform property once it ends, so the tilt rule above and the
+   mobile transform:none!important both take back over cleanly with
+   no extra bookkeeping needed. */
+html.js .tcard.pop-in{ animation:ht-tcard-pop .7s cubic-bezier(.26,.53,.74,1.48) backwards }
+@keyframes ht-tcard-pop{
+  0%{ opacity:0; transform:scale(.5,.5) }
+  100%{ opacity:1; transform:scale(1,1) }
+}
 
 @media (max-width:720px){
   .team-accordion{ flex-direction:column; height:auto; gap:12px; perspective:none }
   .tcard{ flex:none; height:84px; transform:none !important;
     transition:height .55s var(--ease-io), box-shadow .45s, border-color .45s }
-  /* the blanket transform:none!important above (it kills the desktop
-     hover-tilt, irrelevant on touch) was also flattening the pop-in to a
-     plain fade here — no bounce. Same curve as desktop, tilt dropped
-     since there's no hover to drive it on mobile anyway. */
-  html.js .tcard.reveal--pop{ transform:translateY(22px) scale(.88) !important;
-    transition:opacity var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
-               transform var(--dur-3) cubic-bezier(.26,.53,.74,1.48),
-               height .55s var(--ease-io), box-shadow .45s, border-color .45s !important }
-  html.js .tcard.reveal--pop.show{ transform:none !important }
   .tcard.is-active{ height:324px }
   .tcard__meta{ opacity:1; transform:none }       /* full-width rows — names always readable */
   .tcard__bio{ display:none }
@@ -919,7 +914,6 @@ html.fx-on .scroll-hint{
   .eyebrow::after{ display:none }
   .nav-menu > li{ opacity:1; translate:none; transition:none }
   .scroll-hint{ opacity:1 }
-  .tcard.reveal--pop{ opacity:1; transform:none; transition:none }
 }
 
 /* mobile: keep the hero visual, but as a still poster (87KB) rather than the
