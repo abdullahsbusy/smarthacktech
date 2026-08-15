@@ -248,10 +248,12 @@
 (function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
-  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  // NB: this scroll-scrubbed stacking runs even under prefers-reduced-motion.
+  // It's a gentle, user-paced effect (no autoplay), and the OS "reduce
+  // animations" setting is commonly left on by default on Windows, which would
+  // otherwise hide the effect from most visitors.
   var mm = gsap.matchMedia();
   mm.add("(min-width: 900px)", function () {
-    if (reduce) return;
     var cards = gsap.utils.toArray(".svc-card");
     if (cards.length < 2) return;
     var last = cards[cards.length - 1];
