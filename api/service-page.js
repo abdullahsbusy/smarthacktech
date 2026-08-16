@@ -1,14 +1,19 @@
 /* ============================================================
-   Edge middleware — per-service SEO for /service?s=<key>
-   Only touches this one route. The static service.html + service.js
-   pair is untouched and keeps working exactly as before for the page
-   body; this only rewrites the <head> tags a non-JS client (link-
-   preview bots, some crawlers) would otherwise see as generic and
-   identical across all seven services, and turns a missing/unknown
-   ?s= into a real redirect instead of a silent, URL-unchanged fallback.
+   Per-service SEO for /service?s=<key> (see vercel.json rewrite)
+   Reads the static service.html straight off disk and swaps in the
+   right title/description/canonical/OG for the requested service, so
+   non-JS clients (link-preview bots) see the correct per-service card
+   instead of the generic one that service.js only fixes client-side.
+   A missing/unknown ?s= redirects to /solutions instead of silently
+   rendering the fallback at a URL that looks like it worked.
+   Reads the file directly (no fetch/redirect involved) specifically
+   to avoid looping through the site's cleanUrls .html->clean-URL
+   redirect, which an Edge Middleware fetching /service.html would
+   otherwise follow straight back into this same route.
    ============================================================ */
 
-export const config = { matcher: ["/service"] };
+const fs = require("fs");
+const path = require("path");
 
 const SITE = "https://www.hacktechzone.com";
 
@@ -50,27 +55,23 @@ function escAttr(s) {
   return escHtml(s).replace(/"/g, "&quot;");
 }
 
-export default async function middleware(request) {
-  const url = new URL(request.url);
-  const key = url.searchParams.get("s");
-  const meta = key ? SERVICE_META[key] : null;
-
-  // no ?s=, or one that doesn't match a real service — send to Solutions
-  // instead of silently rendering the generic fallback at the /service URL.
-  if (!meta) {
-    return Response.redirect(new URL("/solutions", url), 302);
-  }
-
+module.exports = async function handler(req, res) {
   try {
-    const origin = await fetch(new URL("/service.html", url));
-    if (!origin.ok) return fetch(request);
-    let html = await origin.text();
+    const key = typeof req.query.s === "string" ? req.query.s : null;
+    const meta = key ? SERVICE_META[key] : null;
+
+    if (!meta) {
+      res.setHeader("Location", "/solutions");
+      return res.status(302).end();
+    }
+
+    const html = fs.readFileSync(path.join(process.cwd(), "service.html"), "utf8");
 
     const title = escHtml(meta.title) + ", HackTech";
     const description = escAttr(meta.lead);
     const canonical = `${SITE}/service?s=${encodeURIComponent(key)}`;
 
-    html = html
+    const out = html
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
       .replace(
         /<meta name="description" content="[^"]*">/,
@@ -89,16 +90,13 @@ export default async function middleware(request) {
         `<meta property="og:description" content="${description}">`
       );
 
-    return new Response(html, {
-      status: 200,
-      headers: {
-        "content-type": "text/html; charset=utf-8",
-        "cache-control": "public, max-age=600, stale-while-revalidate=86400",
-      },
-    });
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=600, stale-while-revalidate=86400");
+    return res.status(200).send(out);
   } catch (e) {
-    // anything goes wrong fetching/rewriting — fall through to the normal,
-    // already-working static + client-JS path rather than breaking the page.
-    return fetch(request);
+    // anything unexpected — never surface a 500 for a page visitors rely on,
+    // fall back to the always-working generic Solutions page instead
+    res.setHeader("Location", "/solutions");
+    return res.status(302).end();
   }
-}
+};

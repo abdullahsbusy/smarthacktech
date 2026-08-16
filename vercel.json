@@ -1,6 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/service",
+      "destination": "/api/service-page"
+    }
+  ],
   "redirects": [
     {
       "source": "/work",
@@ -40,6 +46,9 @@
     },
     "api/kaira-lead.js": {
       "maxDuration": 30
+    },
+    "api/service-page.js": {
+      "includeFiles": "service.html"
     }
   },
   "headers": [
