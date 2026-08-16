@@ -464,12 +464,22 @@ html[data-theme="light"] .cp__scrim{background:rgba(20,30,20,.35)}
 /* ---------- 6. cinematic FULL-SCREEN video hero (index.html) ----------
    Portrait AI-humanoid footage as a full-bleed hero background. The copy
    sits over a left-weighted scrim so it stays crisp; the robot's face
-   shows on the lighter right side. The video's containing block is the
-   .hero section (position:relative), so it fills the whole viewport even
-   though it's nested inside the centred .container. */
+   shows on the lighter right side. .hero__visual is pinned with its own
+   inset:0 (rather than left position:static/auto-height) so it always
+   has real size against the .hero section, on its own, from frame one.
+   Previously it relied on the .hero-portal video falling through to
+   .hero for sizing, but while .hero__visual's reveal--scale transition
+   was mid-flight, its live `transform` value made it (per spec) the
+   containing block for that absolutely-positioned video — and a static
+   block with only absolutely-positioned children auto-sizes to 0
+   height. The video was invisible and never started playing until the
+   transition finished and a later reflow (e.g. a scroll) recomputed
+   layout, which read as "the hero animation doesn't load until you
+   scroll". Giving .hero__visual an explicit inset:0 box removes that
+   dependency entirely. */
 .hero--video .hero__grid{ position:static; display:block; max-width:660px; width:100%; align-items:initial }
 .hero--video .hero__copy{ position:relative; z-index:2; min-width:0 }   /* lift copy above the video */
-.hero--video .hero__visual{ position:static; display:block }
+.hero--video .hero__visual{ position:absolute; inset:0; display:block }
 
 .hero-portal{ position:absolute; inset:0; z-index:0; width:100%; height:100%;
   border:0; border-radius:0; box-shadow:none; background:#05080b; overflow:hidden; animation:none }
