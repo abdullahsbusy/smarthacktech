@@ -220,6 +220,22 @@
     }
   })();
 
+  /* ---- 8b. team-card pop: release after the first real paint ----
+     .pop-pending (opacity:0, scale(.5) — see enhance.css) holds the
+     card in the animation's own 0% pose so nothing flashes visible
+     before this runs. Swapping to .pop-in one frame later anchors the
+     animation's clock to "the page is actually on screen" instead of
+     navigation start, so the pop always plays out where a user can
+     see it, no matter how long the rest of the page took to load. */
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      $$(".tcard.pop-pending").forEach(function (el) {
+        el.classList.remove("pop-pending");
+        el.classList.add("pop-in");
+      });
+    });
+  });
+
   /* ---- 8. focus-on-hover: hovered grid card zooms forward, the rest blur ----
      Driven by JS classes (not :has()) so it works in every browser. Gated on
      (hover:hover) so it covers mice/trackpads incl. 2-in-1s, off on touch. */

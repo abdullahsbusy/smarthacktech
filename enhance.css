@@ -620,11 +620,24 @@ video::-webkit-media-controls-overlay-enclosure{
    #team. A real CSS animation (not a transition) releases the
    transform property once it ends, so the tilt rule above and the
    mobile transform:none!important both take back over cleanly with
-   no extra bookkeeping needed. */
+   no extra bookkeeping needed.
+   .pop-pending is the pre-paint hold: markup starts here so there's
+   no flash, and enhance.js (§9) swaps it for .pop-in — which is what
+   actually carries the animation — right after the browser's first
+   real paint. Without that swap the animation's clock starts ticking
+   at navigation-start same as any other CSS; on a page this size
+   (two stylesheets, self-hosted fonts, a full enhancement layer) the
+   0.7s can fully elapse before first paint even lands, so the whole
+   pop plays out unseen. Deferring the trigger past the first frame
+   fixes that regardless of how slow the rest of the load is. */
+html.js .tcard.pop-pending{ opacity:0; transform:scale(.5,.5) }
 html.js .tcard.pop-in{ animation:ht-tcard-pop .7s cubic-bezier(.26,.53,.74,1.48) backwards }
 @keyframes ht-tcard-pop{
   0%{ opacity:0; transform:scale(.5,.5) }
   100%{ opacity:1; transform:scale(1,1) }
+}
+@media (prefers-reduced-motion:reduce){
+  .tcard.pop-pending{ opacity:1; transform:none }   /* JS swap still runs, but belt-and-suspenders */
 }
 
 @media (max-width:720px){
