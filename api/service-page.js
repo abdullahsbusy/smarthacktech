@@ -1,6 +1,6 @@
 /* ============================================================
    Per-service SEO for /service?s=<key> (see vercel.json rewrite)
-   Reads the static service.html straight off disk and swaps in the
+   Reads the static service-src.html straight off disk and swaps in the
    right title/description/canonical/OG for the requested service, so
    non-JS clients (link-preview bots) see the correct per-service card
    instead of the generic one that service.js only fixes client-side.
@@ -10,6 +10,13 @@
    to avoid looping through the site's cleanUrls .html->clean-URL
    redirect, which an Edge Middleware fetching /service.html would
    otherwise follow straight back into this same route.
+   The template lives at service-src.html, not service.html: with
+   cleanUrls on, a file named service.html is itself auto-served at
+   /service, which silently wins over the vercel.json rewrite below
+   (confirmed both in `vercel dev` and on production) — there's no
+   static file left for cleanUrls to claim, so the rewrite is the
+   only thing that can answer /service now. service-src.html is not
+   itself a page anyone links to; it's a template.
    ============================================================ */
 
 const fs = require("fs");
@@ -65,7 +72,7 @@ module.exports = async function handler(req, res) {
       return res.status(302).end();
     }
 
-    const html = fs.readFileSync(path.join(process.cwd(), "service.html"), "utf8");
+    const html = fs.readFileSync(path.join(process.cwd(), "service-src.html"), "utf8");
 
     const title = escHtml(meta.title) + ", HackTech";
     const description = escAttr(meta.lead);

@@ -48,7 +48,7 @@
       "maxDuration": 30
     },
     "api/service-page.js": {
-      "includeFiles": "service.html"
+      "includeFiles": "service-src.html"
     }
   },
   "headers": [
