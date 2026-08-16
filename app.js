@@ -64,6 +64,32 @@
     document.body.appendChild(tt);
   })();
 
+  /* ---- 6b. yield the WhatsApp button while the hero's own CTA is on screen ----
+     Mobile only (<=760px) — that's the only width where the two ever
+     actually collide; desktop's layout keeps them apart already, so this
+     stays out of its way entirely. Only the home page has a `.hero .actions`
+     row, so everywhere else this observer simply finds nothing. Fixes the
+     WA bubble sitting on top of "Get a Quote" on short phones, without
+     guessing at hero content height (which varies by device and copy). */
+  (function () {
+    var wa = $(".wa-fab"), heroActions = $(".hero .actions");
+    if (!wa || !heroActions || !("IntersectionObserver" in window)) return;
+    var mq = window.matchMedia("(max-width:760px)");
+    var io = null;
+    function sync() {
+      if (mq.matches && !io) {
+        io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { wa.classList.toggle("wa-fab--yield", e.isIntersecting); });
+        }, { threshold: 0.01 });
+        io.observe(heroActions);
+      } else if (!mq.matches && io) {
+        io.disconnect(); io = null; wa.classList.remove("wa-fab--yield");
+      }
+    }
+    sync();
+    mq.addEventListener ? mq.addEventListener("change", sync) : mq.addListener(sync);
+  })();
+
   /* ---- 7. (count-up numbers removed, no [data-count] markup remains) ---- */
 
   /* ---- 8. 3D tilt cards ---- */

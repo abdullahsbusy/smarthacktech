@@ -170,6 +170,14 @@ h1,h2,h3,.display,.h2{text-wrap:balance}
   70%{box-shadow:0 10px 26px -8px rgba(18,140,75,.65),0 0 0 14px rgba(47,211,102,0)}
   100%{box-shadow:0 10px 26px -8px rgba(18,140,75,.65),0 0 0 0 rgba(47,211,102,0)}}
 @media(max-width:760px){.wa-fab{left:14px;bottom:14px;width:48px;height:48px}}
+/* on short phones the fixed button can land on top of whatever's at the
+   bottom of the viewport once scrolled down — pull it in a touch tighter */
+@media(max-width:760px) and (max-height:700px){.wa-fab{left:10px;bottom:10px;width:42px;height:42px}}
+/* app.js (§6b) adds this while the home hero's own CTA row is on screen,
+   so the button never sits on top of "Get a Quote" there — it settles
+   back in the instant the hero scrolls past */
+.wa-fab--yield{opacity:0;transform:scale(.7);pointer-events:none;
+  transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 
 /* ---------- footer "open now" chip ---------- */
 .open-chip{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;color:var(--muted)}
@@ -600,6 +608,14 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
 @media(max-width:880px){
   .footer__top{grid-template-columns:1fr 1fr}
 }
+/* the hamburger doesn't take over until 760px, so 761-880px (real iPad-
+   portrait widths, 768/820 included) is desktop nav in a narrower bar —
+   tighten it enough that "Get a Quote" never wraps to two lines */
+@media(min-width:761px) and (max-width:880px){
+  .nav-links{gap:5px}
+  .nav-links > li > a:not(.btn){padding:8px 9px;font-size:12px}
+  .nav-links > li > a.btn{white-space:nowrap}
+}
 @media(max-width:760px){
   .nav-toggle{display:flex}
   .nav-links{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);flex-direction:column;
@@ -648,6 +664,9 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
   .kpis{grid-template-columns:1fr}
   .field--row{grid-template-columns:1fr}
   .footer__top{grid-template-columns:1fr 1fr;gap:24px}
+  /* clears the fixed WhatsApp button (bottom-left) so it never sits on
+     top of the copyright/hours row once scrolled all the way down */
+  .footer__bottom{padding-bottom:74px}
 }
 @media(max-width:520px){.footer__top{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){

@@ -27,7 +27,8 @@
     ["ai", "AI &amp; Automation"],
     ["security", "Security &amp; Surveillance"],
     ["software", "Software Development"],
-    ["training", "Training &amp; Education"]
+    ["training", "Training &amp; Education"],
+    ["sotms", "SOTMS Fleet Platform"]
   ];
   // About dropdown, quick links into the About page sections (title + subtitle)
   var ABOUT_MENU = [
