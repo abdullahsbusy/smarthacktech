@@ -64,26 +64,33 @@
     document.body.appendChild(tt);
   })();
 
-  /* ---- 6b. yield the WhatsApp button while the hero's own CTA is on screen ----
-     Mobile only (<=760px) — that's the only width where the two ever
-     actually collide; desktop's layout keeps them apart already, so this
-     stays out of its way entirely. Only the home page has a `.hero .actions`
-     row, so everywhere else this observer simply finds nothing. Fixes the
-     WA bubble sitting on top of "Get a Quote" on short phones, without
-     guessing at hero content height (which varies by device and copy). */
+  /* ---- 6b. yield the WhatsApp button until the page is actually scrolled ----
+     Mobile only (<=760px) — desktop's layout keeps the button clear of
+     content already. Started as a narrower fix scoped to the home hero's
+     CTA row, but auditing every page found the same class of problem
+     everywhere: whatever a page's opening content is (a heading, a form
+     label, a footer line on the short 404 page) can land at the exact
+     fixed bottom-left spot the button sits in in the FIRST viewport,
+     since that's governed by each page's own content, not something
+     worth hardcoding per page. Hiding the button until the user has
+     scrolled a little is the same pattern lots of sites use for a
+     floating chat bubble, and it clears every page's opening content in
+     one general fix instead of guessing per-page thresholds. */
   (function () {
-    var wa = $(".wa-fab"), heroActions = $(".hero .actions");
-    if (!wa || !heroActions || !("IntersectionObserver" in window)) return;
+    var wa = $(".wa-fab");
+    if (!wa) return;
     var mq = window.matchMedia("(max-width:760px)");
-    var io = null;
+    var active = false;
+    function onScroll() { wa.classList.toggle("wa-fab--yield", window.scrollY < 60); }
     function sync() {
-      if (mq.matches && !io) {
-        io = new IntersectionObserver(function (es) {
-          es.forEach(function (e) { wa.classList.toggle("wa-fab--yield", e.isIntersecting); });
-        }, { threshold: 0.01 });
-        io.observe(heroActions);
-      } else if (!mq.matches && io) {
-        io.disconnect(); io = null; wa.classList.remove("wa-fab--yield");
+      if (mq.matches && !active) {
+        active = true;
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      } else if (!mq.matches && active) {
+        active = false;
+        window.removeEventListener("scroll", onScroll);
+        wa.classList.remove("wa-fab--yield");
       }
     }
     sync();
