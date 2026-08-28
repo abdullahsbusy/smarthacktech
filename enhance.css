@@ -837,60 +837,21 @@ a.pf-card:focus-visible{outline:2px solid var(--c5);outline-offset:3px}
   @keyframes ht-sp-grow{ to{ transform:scaleX(1) } }
 }
 
-/* ---- M3. scroll-driven entrances for card grids & steps ----
-   Supported engines scrub the entrance with the scroll position
-   itself (frame-perfect, no IO latency) and stagger columns via
-   nth-child ranges. The base .reveal state is neutralised here so
-   the JS reveal (still running underneath) never double-animates —
-   in unsupported browsers the JS .reveal remains the one driver.
-   fill-mode:backwards = hidden before entry, fully RELEASED after
-   the range, so hover transforms/filters (.ht-up/.ht-focus) keep
-   working on settled cards. Only opacity/translate/filter animate. */
-@supports (animation-timeline: view()) {
-  html.fx-on :is(.grid--2,.grid--3,.grid--4,.steps) > .reveal{
-    opacity:1; transform:none; filter:none;      /* release the JS reveal */
-    animation-name:ht-view-in;
-    animation-duration:1s;                       /* fallback… */
-    animation-duration:auto;                     /* …auto = fill the range */
-    animation-timing-function:linear;            /* scrubbing tracks the thumb */
-    animation-fill-mode:backwards;
-    animation-timeline:view(block);
-    animation-range:entry 0% entry 52%;
-  }
-  /* column stagger — second and third columns land a beat later */
-  html.fx-on :is(.grid--2,.grid--3,.grid--4,.steps) > .reveal:nth-child(3n+2){
-    animation-range:entry 8% entry 60%;
-  }
-  html.fx-on :is(.grid--2,.grid--3,.grid--4,.steps) > .reveal:nth-child(3n){
-    animation-range:entry 16% entry 68%;
-  }
-  @keyframes ht-view-in{
-    from{ opacity:0; translate:0 42px; filter:blur(7px) }
-  }
-}
-
-/* ---- M3b. scroll-driven pop for the "founded → today" steps ----
-   Same view() scrubbing as M3, but with a touch of scale overshoot so
-   the entrance feels springy instead of a flat fade+rise. Only steps
-   opt in (via .reveal--pop); every other M3 grid is untouched. */
-@supports (animation-timeline: view()) {
-  html.fx-on .steps > .reveal--pop{
-    opacity:1; transform:none; filter:none;
-    animation-name:ht-view-in-pop;
-    animation-duration:1s;
-    animation-duration:auto;
-    animation-timing-function:linear;
-    animation-fill-mode:backwards;
-    animation-timeline:view(block);
-    animation-range:entry 0% entry 52%;
-  }
-  html.fx-on .steps > .reveal--pop:nth-child(3n+2){ animation-range:entry 8% entry 60%; }
-  html.fx-on .steps > .reveal--pop:nth-child(3n){ animation-range:entry 16% entry 68%; }
-  @keyframes ht-view-in-pop{
-    from{ opacity:0; translate:0 30px; scale:.82; filter:blur(6px) }
-    65%{ scale:1.03 }
-  }
-}
+/* ---- M3/M3b removed ----
+   Both used `animation-timeline: view()` to scrub card-grid and step
+   entrances with scroll position for a frame-perfect effect in
+   supporting engines, with the JS-driven IntersectionObserver .reveal
+   system as the fallback everywhere else. Verified via direct testing
+   (real incremental scrollTo + getAnimations()) that the view-timeline
+   animation can attach with playState:"running" but an unresolved
+   currentTime after fast/programmatic scrolling — and since visibility
+   was entirely animation-driven with fill-mode:backwards and no
+   recovery path, the element then stays stuck at its 0% keyframe
+   (opacity:0) permanently. That hit the homepage's main service-card
+   grid, among others. The JS/CSS-transition .reveal system (still the
+   only mechanism now) doesn't have this failure mode — verified
+   reliable across real scrolling, instant jumps, and anchor navigation.
+   Trading the scroll-scrub polish for guaranteed content visibility. */
 
 /* ---- M4. hero entrance choreography (index) ----
    The copy already staggers in via .reveal delays; the backdrop
