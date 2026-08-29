@@ -323,75 +323,6 @@ html.fx-on .split:hover .media-photo img{ transform:translateY(var(--py,0)) scal
   transition:opacity var(--dur-3) var(--ease-out-expo), transform var(--dur-3) var(--ease-out-expo) }
 .media-photo.reveal-img.show{ opacity:1; transform:none }
 
-/* ---------- 4b. photographic service slides (solutions.html) ----------
-   Each .ws-right gets a real backdrop via an inline --shot url. A dark
-   teal wash keeps the white copy readable; the slider's existing
-   saturate/brightness filter already mutes inactive slides and snaps the
-   active one vivid — so the photos breathe in and out with the scroll. */
-.ws-right.ws-shot{
-  background-image:
-    linear-gradient(150deg, rgba(10,10,10,.74), rgba(10,16,19,.84)),
-    linear-gradient(120deg, rgba(15,111,176,.28), transparent 60%),
-    var(--shot);
-  background-size:cover; background-position:center; background-repeat:no-repeat;
-}
-.ws-right.ws-shot .ws-text{ color:#f4f9f8; text-shadow:0 2px 18px rgba(0,0,0,.5) }
-
-/* ---------- 4c. slide choreography: active slide's content rises in ----------
-   Swiper stamps .swiper-slide-active; everything below is CSS-only.
-   Inactive slides hold content faded+shifted, the active one staggers
-   title → caption → text → chips → link on the signature easing. */
-.why-slider.swiper-initialized .swiper-slide .ws-title,
-.why-slider.swiper-initialized .swiper-slide .ws-cap,
-.why-slider.swiper-initialized .swiper-slide .ws-text,
-.why-slider.swiper-initialized .swiper-slide .chip-row .chip,
-.why-slider.swiper-initialized .swiper-slide .ws-left-in .card__link{
-  opacity:0; translate:0 22px;
-  transition:opacity .65s var(--ease-out-expo), translate .65s var(--ease-out-expo);
-}
-/* NOTE: these must carry .swiper-initialized too, or they lose the specificity
-   race with the base rule above (4 classes vs 3) and the active slide's content
-   stays stuck at opacity:0 — i.e. the whole slide looks empty. */
-.why-slider.swiper-initialized .swiper-slide-active .ws-title,
-.why-slider.swiper-initialized .swiper-slide-active .ws-cap,
-.why-slider.swiper-initialized .swiper-slide-active .ws-text,
-.why-slider.swiper-initialized .swiper-slide-active .chip-row .chip,
-.why-slider.swiper-initialized .swiper-slide-active .ws-left-in .card__link{ opacity:1; translate:0 }
-.why-slider .swiper-slide-active .ws-title{ transition-delay:.08s }
-.why-slider .swiper-slide-active .ws-cap{ transition-delay:.18s }
-.why-slider .swiper-slide-active .ws-text{ transition-delay:.22s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(1){ transition-delay:.30s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(2){ transition-delay:.36s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(3){ transition-delay:.42s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(4){ transition-delay:.48s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(5){ transition-delay:.54s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(6){ transition-delay:.60s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(7){ transition-delay:.66s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(8){ transition-delay:.72s }
-.why-slider .swiper-slide-active .chip-row .chip:nth-child(9){ transition-delay:.78s }
-.why-slider .swiper-slide-active .ws-left-in .card__link{ transition-delay:.84s }
-/* title underline draws itself under the active slide's heading */
-.why-slider .ws-title{ position:relative; padding-bottom:10px }
-.why-slider .ws-title::after{
-  content:""; position:absolute; left:0; bottom:0; height:3px; width:0;
-  border-radius:999px; background:var(--grad-line);
-  box-shadow:0 0 14px rgba(47,168,239,.5);
-  transition:width .7s var(--ease-out-expo) .35s;
-}
-.why-slider .swiper-slide-active .ws-title::after{ width:64px }
-/* slow Ken Burns drift on the active slide's photo */
-@keyframes ws-drift{ from{ background-position:center 46% } to{ background-position:center 54% } }
-.why-slider .swiper-slide-active .ws-right.ws-shot{
-  animation:ws-drift 9s ease-in-out infinite alternate;
-}
-@media (prefers-reduced-motion:reduce){
-  .why-slider .swiper-slide .ws-title, .why-slider .swiper-slide .ws-cap,
-  .why-slider .swiper-slide .ws-text, .why-slider .swiper-slide .chip-row .chip,
-  .why-slider .swiper-slide .ws-left-in .card__link{ opacity:1; translate:0; transition:none }
-  .why-slider .ws-title::after{ transition:none }
-  .why-slider .swiper-slide-active .ws-right.ws-shot{ animation:none }
-}
-
 /* ============================================================
    ⌘K command palette (.cp-*) — glass panel, staggered results
    ============================================================ */
@@ -519,45 +450,6 @@ html[data-theme="light"] .cp__scrim{background:rgba(20,30,20,.35)}
 .split__media--gif video{
   width:auto; max-width:100%; max-height:600px; height:auto;
   border-radius:18px; box-shadow:var(--shadow); display:block; margin-inline:auto;
-}
-
-/* ---------- 11. tamed Services carousel (no scroll-hijack, contained) ---------- */
-#services.why-section{ padding:13vh 0 }
-#services .why-label{ position:static; text-align:center; margin:0 auto 28px; pointer-events:auto }
-#services .why-slider{
-  height:auto; width:100%; max-width:var(--maxw); margin-inline:auto;
-  padding:0 clamp(40px,6vw,72px); background:transparent; overflow:hidden;
-  --swiper-theme-color:var(--c6); --swiper-navigation-size:22px;
-}
-#services .why-slider .swiper-slide{
-  height:auto; border:1px solid var(--line-2); border-radius:var(--r-lg); overflow:hidden;
-  box-shadow:var(--shadow);
-}
-#services .ws-half{ height:auto; min-height:360px; padding:clamp(26px,3.5vw,52px) }
-/* nav arrows */
-#services .why-slider .swiper-button-prev,
-#services .why-slider .swiper-button-next{
-  width:44px; height:44px; border-radius:50%;
-  background:rgba(10,10,10,.55); border:1px solid var(--line-2); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-}
-#services .why-slider .swiper-button-prev{ left:2px }
-#services .why-slider .swiper-button-next{ right:2px }
-/* dots below, horizontal */
-#services .why-slider .swiper-pagination{
-  position:static; right:auto; left:auto; margin-top:20px;
-  display:flex; gap:10px; justify-content:center;
-}
-#services .why-slider .swiper-pagination-bullet{
-  width:10px; height:10px; border-radius:50%; margin:0 !important;
-  background:var(--muted); opacity:.5;
-}
-#services .why-slider .swiper-pagination-bullet-active{
-  width:26px; height:10px; border-radius:6px; background:var(--c6); opacity:1;
-}
-@media(max-width:640px){
-  #services .why-slider{ padding:0 34px }
-  #services .why-slider .swiper-slide{ flex-direction:column }
-  #services .ws-half{ width:100%; min-height:0 }
 }
 
 /* ---------- 12. decorative videos: never look clickable (no play/skip icon) ----------

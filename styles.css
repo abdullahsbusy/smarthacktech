@@ -108,10 +108,9 @@ html[data-theme="light"] .section--light{
   --grad-line:linear-gradient(90deg,#0A6199,#041F30);
   background:#C6E1F7;
 }
-/* dark zones in light mode (home hero video + Services carousel) keep light
-   text + bright lemon/sage accents so every word stays readable on dark */
-html[data-theme="light"] .hero,
-html[data-theme="light"] .why-section{
+/* dark zones in light mode (home hero video) keep light text + bright
+   lemon/sage accents so every word stays readable on dark */
+html[data-theme="light"] .hero{
   --ink:#eef5fb; --head:#ffffff; --muted:#d3e5f2; --faint:#8fabc2; --c6:#8FC8F2;
   --line:rgba(255,255,255,.14); --line-2:rgba(255,255,255,.24);
   --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.10);
@@ -119,9 +118,6 @@ html[data-theme="light"] .why-section{
   --grad-text:linear-gradient(120deg,#C6E1F7,#8FC8F2 55%,#2FA8EF);
   --grad-line:linear-gradient(90deg,#C6E1F7,#2FA8EF);
 }
-/* the carousel's left/right panels paint with c1–c4 → keep them deep green in
-   light mode too, so the light slide titles never sit on a light panel */
-html[data-theme="light"] .why-section{ --c1:#041520; --c2:#08283a; --c3:#0c3e58; --c4:#0f6fb0 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -547,58 +543,6 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
   ::view-transition-old(*),::view-transition-new(*){animation:none!important}
 }
 
-/* ---------- "Why HackTech" parallax slider (Swiper) ---------- */
-.why-section{position:relative}
-.why-label{position:absolute;top:clamp(78px,12vh,120px);left:7vw;z-index:6;pointer-events:none}
-.why-slider{position:relative;width:100%;height:100svh;overflow:hidden;background:#0a1013}
-.why-slider .swiper-slide{display:flex;overflow:hidden}
-.ws-half{position:relative;width:50%;height:100%;display:flex;align-items:center;
-  padding:clamp(40px,8vw,140px);overflow:hidden}
-.ws-left{background:linear-gradient(150deg,var(--c2),var(--c1));filter:grayscale(.5) brightness(.82);
-  transition:filter 1.1s linear .2s}
-.ws-right{background:linear-gradient(150deg,var(--c3),var(--c4));filter:saturate(.55) brightness(.8);
-  transition:filter 1.1s linear .2s}
-.swiper-slide-active .ws-left,.swiper-slide-active .ws-right{filter:none}
-.ws-left-in{max-width:560px}
-.ws-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2.8rem,6vw,5.2rem);line-height:1.02;color:#fff}
-.ws-cap{margin-top:16px;color:rgba(255,255,255,.8);font-size:.78rem;letter-spacing:2px;text-transform:uppercase}
-.ws-text{color:#F1ECE0;font-size:clamp(1.2rem,2.1vw,1.8rem);line-height:1.6;max-width:520px;font-weight:500}
-.ws-body{max-width:560px}
-.ws-body .ws-text{max-width:none;margin-bottom:4px}
-.ws-body .chip{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);color:#fff}
-.ws-body .card__link{color:#fff;margin-top:22px}
-/* services slider: titles are full words ("IoT solutions"), so smaller than the flagship's one-word titles — fits the narrow left panel without overflowing */
-#services .ws-title{font-size:clamp(1.8rem,3vw,3.1rem);line-height:1.08;word-break:break-word}
-#services .ws-cap{margin-top:14px}
-/* the left panel now carries the whole narrative (title, caption, description,
-   CTA) so it reads as an intentional text column instead of an empty half;
-   the photo on the right holds the capability chips as floating tags. */
-.ws-left-in .ws-text{margin-top:22px;color:#e9f2f6;max-width:480px}
-.ws-left-in .card__link{display:inline-block;margin-top:26px;color:#fff}
-/* right half: chips float over the photo as a centred tag cloud */
-.ws-right .chip-row{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;
-  align-content:center;max-width:560px;margin:0 auto}
-.ws-right .chip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
-  color:#fff;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
-  box-shadow:0 6px 18px -8px rgba(0,0,0,.6)}
-/* balanced split so the text column breathes (home flagship stays 50/50) */
-@media(min-width:641px){
-  #services .ws-left{width:46%}
-  #services .ws-right{width:54%}
-}
-.why-slider .swiper-pagination{right:16px;left:auto}
-.why-slider .swiper-pagination-bullet{width:12px;height:12px;background:#fff;opacity:.45;transition:.3s}
-.why-slider .swiper-pagination-bullet-active{opacity:1;background:var(--c6);height:30px;width:12px;border-radius:7px}
-@media(max-width:640px){
-  .why-slider{height:100svh}
-  .why-slider .swiper-slide{flex-direction:column}
-  .ws-half{width:100%;padding:22px 24px}
-  .ws-left{height:auto;flex:0 0 auto;padding-top:30px}
-  .ws-right{flex:1 1 auto;min-height:0;overflow-y:auto}   /* text scrolls instead of clipping */
-  .ws-title{font-size:clamp(2rem,9vw,2.9rem)}
-  .ws-text{font-size:clamp(1.02rem,4.3vw,1.25rem)}
-}
-
 /* centre the tags AND cap the width so a long list (e.g. the audience tags on
    /solutions) forms a tidy balanced block instead of sprawling across the full
    container into lopsided rows */
@@ -618,6 +562,12 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
 }
 @media(max-width:760px){
   .nav-toggle{display:flex}
+  /* the drawer is a descendant of .nav, so it's capped inside .nav's own
+     stacking context (z-index:50) — below the WhatsApp FAB (65) and the
+     Kaira chat launcher (70/71), both fixed siblings at the body root.
+     Raise .nav itself while the drawer is open so the whole panel clears
+     both floating bubbles instead of them poking through the "modal" menu. */
+  .nav.drawer-open{z-index:90}
   .nav-links{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);flex-direction:column;
     align-items:flex-start;gap:22px;padding:104px 30px 44px;
     /* SOLID, opaque background — never rely on backdrop-filter for the mobile
@@ -683,12 +633,6 @@ html.js .reveal.show{opacity:1;transform:none;filter:none}
 /* ---------- WCAG touch targets (44px min on conversion controls) ---------- */
 .nav-toggle{padding:10px;margin:-10px}
 a.chip{min-height:44px;display:inline-flex;align-items:center}
-#services .swiper-pagination-bullet{position:relative}
-#services .swiper-pagination-bullet::before{content:"";position:absolute;inset:-9px}
-.swiper-pause{position:absolute;right:16px;bottom:14px;z-index:12;width:44px;height:44px;
-  border-radius:50%;border:1px solid var(--line-2);background:rgba(10,10,10,.55);color:var(--ink);
-  font-size:13px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.swiper-pause:hover{border-color:var(--c5)}
 /* set-in-type fact line — replaces the count-up stat row */
 .hero-fact{margin-top:34px;font-family:var(--font-display);font-size:clamp(.95rem,1.4vw,1.08rem);
   color:var(--muted);letter-spacing:.2px}

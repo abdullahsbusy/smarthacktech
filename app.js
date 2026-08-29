@@ -38,9 +38,10 @@
       var open = links.classList.toggle("open");
       toggle.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", open);
+      if (nav) nav.classList.toggle("drawer-open", open);
     });
     links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) { links.classList.remove("open"); toggle.classList.remove("open"); }
+      if (e.target.closest("a")) { links.classList.remove("open"); toggle.classList.remove("open"); if (nav) nav.classList.remove("drawer-open"); }
     });
   }
 
@@ -99,9 +100,16 @@
 
   /* ---- 7. (count-up numbers removed, no [data-count] markup remains) ---- */
 
-  /* ---- 8. 3D tilt cards ---- */
-  if (finePointer && !reduce) {
-    $$(".tilt").forEach(function (el) {
+  /* ---- 8. 3D tilt cards ----
+     exposed on window.HTFx.bindTilt so pages that inject cards after this
+     script has already scanned the DOM (service.js's capability/related-
+     project cards) can re-run it scoped to just the new container. */
+  window.HTFx = window.HTFx || {};
+  window.HTFx.bindTilt = function (root) {
+    if (!finePointer || reduce) return;
+    $$(".tilt", root).forEach(function (el) {
+      if (el.dataset.tiltBound) return;
+      el.dataset.tiltBound = "1";
       el.addEventListener("mousemove", function (e) {
         var r = el.getBoundingClientRect();
         var rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
@@ -110,7 +118,8 @@
       });
       el.addEventListener("mouseleave", function () { el.style.transform = ""; });
     });
-  }
+  };
+  window.HTFx.bindTilt(document);
 
   /* ---- 9. (testimonials carousel removed, no [data-carousel] markup remains) ---- */
 
@@ -212,7 +221,23 @@
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json", Accept: "application/json" }
       })
-        .then(function (r) { if (r.ok) ok(); else mailtoFallback(); })  // backend not ready → fall back
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (data) { return { r: r, data: data }; });
+        })
+        .then(function (res) {
+          if (res.r.ok) { ok(); return; }
+          // 400 (bad input) and 429 (rate-limited) are the visitor's own form
+          // state, not a broken backend — surface the server's own message
+          // and let them fix/retry instead of shoving them into mailto.
+          if (res.r.status === 400 || res.r.status === 429) {
+            if (msg) {
+              msg.textContent = res.data && res.data.error ? res.data.error : "Something went wrong, please try again.";
+              msg.style.color = "var(--warn)";
+            }
+            return;
+          }
+          mailtoFallback();   // backend/email service actually down → fall back
+        })
         .catch(mailtoFallback)
         .finally(function () { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || "Get my quote"; } });
     });
@@ -248,7 +273,6 @@
       if (e.ctrlKey) return;                               // pinch-zoom
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // leave horizontal native
       if (inScrollable(e.target)) return;                  // let inner scroll areas work
-      if (e.target.closest && e.target.closest(".why-slider")) return; // Swiper owns the wheel here
       var unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
       go(target + e.deltaY * unit);
       e.preventDefault();

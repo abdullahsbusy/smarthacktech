@@ -467,4 +467,18 @@
   document.querySelectorAll("#svc-features .reveal, #svc-projects .reveal").forEach(function (el) {
     el.classList.add("show");
   });
+
+  // app.js/enhance.js already scanned the DOM before these cards existed, so
+  // the 3D tilt, cursor sheen, orbiting edge-light and hover-blur effects
+  // every other page's identical .card.card--glow markup gets never got
+  // bound here — re-run each, scoped to just the two freshly-injected grids.
+  if (window.HTFx) {
+    [document.getElementById("svc-features"), document.getElementById("svc-projects")].forEach(function (grid) {
+      if (!grid) return;
+      if (window.HTFx.bindTilt) window.HTFx.bindTilt(grid);
+      if (window.HTFx.bindSheen) window.HTFx.bindSheen(grid);
+      if (window.HTFx.bindOrbit) window.HTFx.bindOrbit(grid);
+      if (window.HTFx.bindHoverBlur) window.HTFx.bindHoverBlur(grid);
+    });
+  }
 })();

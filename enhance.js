@@ -15,15 +15,20 @@
 
   /* ---- custom cursor removed — the site uses the normal system cursor ---- */
 
-  /* ---- 2. holographic sheen: light that follows the cursor across glass ---- */
-  (function () {
+  /* ---- 2. holographic sheen: light that follows the cursor across glass ----
+     exposed on window.HTFx.bindSheen so pages that inject cards after this
+     script has already scanned the DOM (service.js's capability/related-
+     project cards) can re-run it scoped to just the new container. */
+  window.HTFx = window.HTFx || {};
+  window.HTFx.bindSheen = function (root) {
     if (reduce || !finePointer) return;
     var SURFACES = ".card,.kpi,.calc,.dash,.split__media,.step,.cta";
-    $$(SURFACES).filter(function (el) {
+    $$(SURFACES, root).filter(function (el) {
       // photos keep their own wash/scanline treatment — the generic sheen
       // would lift the <img> above those overlays, so skip them.
-      return !el.classList.contains("media-photo");
+      return !el.classList.contains("media-photo") && !el.dataset.sheenBound;
     }).forEach(function (el) {
+      el.dataset.sheenBound = "1";
       el.classList.add("fx-sheen");
       el.addEventListener("pointermove", function (e) {
         var r = el.getBoundingClientRect();
@@ -33,7 +38,8 @@
       el.addEventListener("pointerenter", function () { el.classList.add("is-live"); });
       el.addEventListener("pointerleave", function () { el.classList.remove("is-live"); });
     });
-  })();
+  };
+  window.HTFx.bindSheen(document);
 
   /* ---- 3. photo reveal + gentle scroll parallax ---- */
   (function () {
@@ -195,11 +201,15 @@
     kh.classList.add("kinetic");
   })();
 
-  /* ---- 7. rotating edge-light: a bright line orbiting every card/box ---- */
-  (function () {
+  /* ---- 7. rotating edge-light: a bright line orbiting every card/box ----
+     exposed on window.HTFx.bindOrbit so pages that inject cards after this
+     script has already scanned the DOM (service.js's capability/related-
+     project cards) can re-run it scoped to just the new container. */
+  window.HTFx = window.HTFx || {};
+  window.HTFx.bindOrbit = function (root) {
     var TARGETS = ".card,.step,.kpi,.stat,.tcard,.cta,.pf-show__media,.media-photo";
     var orbs = [];
-    $$(TARGETS).forEach(function (el) {
+    $$(TARGETS, root).forEach(function (el) {
       if (el.querySelector(":scope > .ht-orbit")) return;            // already done
       el.classList.add("has-orbit");
       var o = document.createElement("i");
@@ -218,7 +228,8 @@
       }, { rootMargin: "150px" });
       orbs.forEach(function (o) { o.style.animationPlayState = "paused"; io.observe(o); });
     }
-  })();
+  };
+  window.HTFx.bindOrbit(document);
 
   /* ---- 8b. team-card pop: release after the first real paint ----
      .pop-pending (opacity:0, scale(.5) — see enhance.css) holds the
@@ -238,10 +249,18 @@
 
   /* ---- 8. focus-on-hover: hovered grid card zooms forward, the rest blur ----
      Driven by JS classes (not :has()) so it works in every browser. Gated on
-     (hover:hover) so it covers mice/trackpads incl. 2-in-1s, off on touch. */
-  (function () {
+     (hover:hover) so it covers mice/trackpads incl. 2-in-1s, off on touch.
+     Exposed on window.HTFx.bindHoverBlur so pages that inject cards after
+     this script has already scanned the DOM (service.js's capability/
+     related-project cards) can re-run it scoped to just the new grid. */
+  window.HTFx = window.HTFx || {};
+  window.HTFx.bindHoverBlur = function (root) {
     if (!window.matchMedia("(hover:hover)").matches) return;
-    $$(".grid--2,.grid--3,.grid--4").forEach(function (grid) {
+    var isGrid = root.nodeType === 1 && root.matches && root.matches(".grid--2,.grid--3,.grid--4");
+    var grids = isGrid ? [root] : $$(".grid--2,.grid--3,.grid--4", root);
+    grids.forEach(function (grid) {
+      if (grid.dataset.hoverBlurBound) return;
+      grid.dataset.hoverBlurBound = "1";
       var cards = $$(":scope > .card", grid);
       if (cards.length < 2) return;                 // nothing to blur against
       cards.forEach(function (card) {
@@ -255,6 +274,7 @@
         });
       });
     });
-  })();
+  };
+  window.HTFx.bindHoverBlur(document);
 
 })();
