@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* TechWallet theme: matches the HackTech site (deep navy, azure, amber CTA). */
+:root {
+  color-scheme: dark;
+  --paper: #021826;
+  --surface: #052939;
+  --tint: #0a3550;
+  --line: rgba(47, 168, 239, 0.22);
+  --ink: #d8e7f2;
+  --muted: #8fb0c4;
+  --primary: #2fa8ef;
+  --primary-dark: #0f6fb0;
+  --accent: #ffa400;
+  --success: #5fb98a;
+  --deep: #01101a;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-tint: var(--tint);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-deep: var(--deep);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background:
+    radial-gradient(1100px 520px at 85% -10%, rgba(47, 168, 239, 0.14), transparent 60%),
+    var(--paper);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), var(--font-inter), system-ui, sans-serif;
+  color: #fff;
+}
+
+input, select, textarea { color: inherit; }
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
+select option { background: var(--surface); color: var(--ink); }
+
+.container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 1.5rem; }
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  height: 2.75rem; padding-inline: 1.25rem; border-radius: .75rem;
+  font-weight: 600; font-size: .9rem; transition: background .15s, border-color .15s, transform .15s;
+}
+.btn-primary { background: linear-gradient(120deg, #ffb52e, #f5a100); color: #021826; }
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-accent { background: var(--primary-dark); color: #fff; }
+.btn-accent:hover { background: var(--primary); color: #021826; }
+.btn-outline { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+.btn-outline:hover { border-color: var(--primary); color: #fff; }
