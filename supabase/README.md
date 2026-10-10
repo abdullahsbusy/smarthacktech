@@ -1,6 +1,6 @@
 # Database
 
-Postgres on Supabase, project ref `lawgakbbrfhauyxvftef`. The repo is connected
+Postgres on Supabase, project ref `oqkvjlqcuhbfwscdcywp`. The repo is connected
 through the GitHub integration, so **anything added to `migrations/` is applied
 to production when it reaches `main`**. A push is a schema change, not just a
 site deploy.
