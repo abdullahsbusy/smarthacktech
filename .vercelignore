@@ -2,10 +2,6 @@
 # static marketing site (it has its own node_modules / build).
 veyra/
 
-# The TechWallet store (Next.js) is its own Vercel project with Root Directory
-# "techwallet". Don't ship it as part of the static site.
-techwallet/
-
 # project tooling - never ship as static files
 .claude/
 skills-lock.json
