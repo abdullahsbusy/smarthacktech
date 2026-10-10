@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import { statusStyle } from "@/lib/admin-mock";
 import { supabaseAdmin } from "@/lib/supabase";
 import { fmtDate } from "@/lib/format";
@@ -18,6 +19,7 @@ export default function AdminFyp() {
 }
 
 async function FypList() {
+  await connection();
   const { data, error } = await supabaseAdmin().from("fyp_requests").select("*").order("created_at", { ascending: false }).limit(200);
   if (error) return <p role="alert" className="mt-6 rounded-lg bg-accent/10 p-4 text-sm text-accent">Could not load requests: {error.message}</p>;
   if (!data.length) return <p className="mt-6 text-muted">No requests yet.</p>;

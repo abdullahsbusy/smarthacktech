@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { getAllProductsForAdmin } from "@/lib/catalog";
 import ProductForm from "@/components/ProductForm";
@@ -15,6 +16,7 @@ export default function EditProduct({ params }: PageProps<"/admin/products/[slug
 }
 
 async function EditForm({ params }: { params: PageProps<"/admin/products/[slug]">["params"] }) {
+  await connection();
   const { slug } = await params;
   const product = (await getAllProductsForAdmin()).find((p) => p.slug === slug);
   if (!product) notFound();

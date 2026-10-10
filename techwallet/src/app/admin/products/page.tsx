@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import Link from "next/link";
 import { categories, pkr } from "@/lib/data";
 import { getAllProductsForAdmin } from "@/lib/catalog";
@@ -18,6 +19,7 @@ export default function AdminProducts() {
 }
 
 async function ProductTable() {
+  await connection();
   let products;
   try {
     products = await getAllProductsForAdmin();
